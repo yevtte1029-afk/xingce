@@ -7,6 +7,7 @@
 ## 链接
 
 GitHub 版入口：https://yevtte1029-afk.github.io/xingce/
+
 Claude 版入口：https://claude.ai/artifact/RRkQJL7B5P6ujsenuT4J4r
 
 ## Tips
