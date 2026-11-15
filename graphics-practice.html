@@ -274,7 +274,7 @@ function render(){
   var stems=el('div','stems');
   var wmax=Math.min(560,Math.max(220,(stage.clientWidth||340)-70));
   d.s.forEach(function(s){var t=el('div','tile');t.appendChild(mkImg(s,wmax,280,2.6,'题干'));stems.appendChild(t);});
-  if(d.w){var wt=el('div','tile');wt.appendChild(mkFile('img/'+d.w+'.jpg',wmax,400,1.6,'题目'));stems.appendChild(wt);}
+  if(d.w){var wt=el('div','tile');wt.appendChild(mkFile(''+d.w+'.jpg',wmax,400,1.6,'题目'));stems.appendChild(wt);}
   (d.wi||[]).forEach(function(c){var wt=el('div','tile');wt.appendChild(mkFile(IMG[c][0],wmax,400,1.6,'题目'));stems.appendChild(wt);});
   card.appendChild(stems);
   var opts=el('div','opts');
