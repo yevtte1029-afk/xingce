@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>逻辑推理题型讲义</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one reading column, sticky type index, worked examples as the only cards, selection toolbar docked at bottom */
+:root{
+  --bg:#f4f5f8;--surface:#ffffff;--ink:#1b2430;--ink2:#58647a;--line:#dce1ea;
+  --accent:#2b59c3;--accent-soft:#e3eafb;--good:#17794f;--good-soft:#dff3e8;--bad:#b83a33;--bad-soft:#fbe5e3;
+  --h1:#ffe48a;--h2:#b7ecc9;--h3:#ffc4d3;--h4:#b6d5ff;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Noto Serif SC","Songti SC","SimSun",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10151c;--surface:#171e28;--ink:#e7ecf3;--ink2:#9aa7ba;--line:#283241;
+  --accent:#86a7f4;--accent-soft:#1c2943;--good:#58c796;--good-soft:#16372a;--bad:#f08a82;--bad-soft:#40201f;
+  --h1:#6d5d16;--h2:#1f5a3b;--h3:#6b2b41;--h4:#1f4573;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10151c;--surface:#171e28;--ink:#e7ecf3;--ink2:#9aa7ba;--line:#283241;
+  --accent:#86a7f4;--accent-soft:#1c2943;--good:#58c796;--good-soft:#16372a;--bad:#f08a82;--bad-soft:#40201f;
+  --h1:#6d5d16;--h2:#1f5a3b;--h3:#6b2b41;--h4:#1f4573;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 120px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.wrap{max-width:860px;margin:0 auto}
+header{padding-top:28px}
+h1{font-family:var(--serif);font-size:clamp(26px,5vw,36px);line-height:1.25;margin:0 0 8px;text-wrap:balance;letter-spacing:.02em}
+.lead{color:var(--ink2);margin:0;max-width:62ch}
+.how{margin:18px 0 0;padding:12px 14px;border:1px dashed var(--line);border-radius:8px;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;font-size:14px}
+.how .sw{display:inline-flex;gap:4px;vertical-align:middle}
+.how .sw i{width:14px;height:14px;border-radius:50%;display:inline-block}
+.how p{margin:0;flex:1 1 280px;min-width:0}
+.ghost{font:inherit;font-size:13px;color:var(--ink2);background:none;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+.ghost:hover{color:var(--ink);border-color:var(--ink2)}
+.mix{margin:26px 0 0}
+.mix h2{font-size:13px;letter-spacing:.08em;color:var(--ink2);font-weight:500;margin:0 0 10px}
+.bars{display:grid;gap:7px}
+.bar{display:grid;grid-template-columns:minmax(120px,170px) 1fr 76px;gap:10px;align-items:center;font-size:14px;color:inherit;text-decoration:none}
+.bar:hover .nm{color:var(--accent)}
+.bar .track{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--accent);border-radius:5px;min-width:3px}
+.bar .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
+.note{color:var(--ink2);font-size:13.5px;margin:10px 0 0}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);margin:22px 0 0;padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav a{flex:0 0 auto;font-size:13.5px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;background:var(--surface);white-space:nowrap}
+nav a.on{background:var(--accent);border-color:var(--accent);color:#fff}
+section{padding-top:40px;scroll-margin-top:60px}
+.sh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+h3{font-family:var(--serif);font-size:24px;margin:0;text-wrap:balance}
+.cnt{font-size:13px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.one{margin:0 0 16px;color:var(--ink2);max-width:62ch}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.fact h4{margin:0 0 6px;font-size:12.5px;letter-spacing:.1em;color:var(--accent);font-weight:700}
+.fact ul,.fact ol{margin:0;padding-left:1.25em}
+.fact li{margin:0 0 5px}
+.fact li::marker{color:var(--ink2)}
+.ex{margin-top:26px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px clamp(14px,3vw,22px)}
+.exhd{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;color:var(--ink2);letter-spacing:.06em;margin-bottom:10px}
+.pass{font-family:var(--serif);font-size:16.5px;line-height:1.95;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.q{margin:12px 0 10px;font-weight:700}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:10px;text-align:left;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;line-height:1.6}
+.opt b{flex:0 0 1.4em;color:var(--ink2)}
+.opt:hover{border-color:var(--accent)}
+.opt:focus-visible,.ghost:focus-visible,nav a:focus-visible,.tb button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt.ok{background:var(--good-soft);border-color:var(--good)}
+.opt.no{background:var(--bad-soft);border-color:var(--bad)}
+.opt.lock{cursor:default}
+.res{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.verdict{font-weight:700;margin:0 0 6px}
+.verdict.ok{color:var(--good)}.verdict.no{color:var(--bad)}
+.expl{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.tip{margin:10px 0 0;padding:8px 12px;background:var(--accent-soft);border-radius:8px;font-size:14px}
+.redo{margin-top:10px}
+.hlm{border-radius:3px;padding:1px 0;-webkit-box-decoration-break:clone;box-decoration-break:clone;cursor:pointer}
+.c1{background:var(--h1)}.c2{background:var(--h2)}.c3{background:var(--h3)}.c4{background:var(--h4)}
+.key{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px}
+table.logic{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+.tw{overflow-x:auto;margin-top:12px}
+.logic th,.logic td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+.logic th{background:var(--accent-soft);font-weight:500}
+.tb{position:fixed;left:0;top:0;z-index:40;width:0;height:0;pointer-events:none}
+.tb[hidden]{display:none}
+.tb div{pointer-events:auto;position:absolute;left:0;top:0;transform:translateX(-50%);white-space:nowrap;display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.tb span{font-size:12.5px;color:var(--ink2);padding-right:2px}
+.tb button{width:30px;height:30px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.tb button.er{width:auto;border-radius:999px;padding:0 12px;font:inherit;font-size:13px;background:var(--bg);color:var(--ink)}
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink2);font-size:13.5px}
+@media (max-width:720px){
+  .facts{grid-template-columns:1fr;gap:16px}
+  .bar{grid-template-columns:110px 1fr 64px;gap:8px;font-size:13px}
+  .pass{font-size:16px}
+}
+@media (prefers-reduced-motion:no-preference){.opt{transition:border-color .15s,background .15s}}
+</style>
+
+<style>.sig{font:500 12px/1 "IBM Plex Mono","Noto Sans SC",monospace;letter-spacing:.06em;color:var(--muted,#6b7280);opacity:.85;margin:0 0 10px}</style>
+<div class="wrap">
+<div class="sig">作者@RED.Yvette</div>
+<header>
+  <h1>逻辑推理题型讲义</h1>
+  <p class="lead">按题库里真实出现的五类题型来讲。每类先看怎么认出来、怎么做、哪里容易错，再用题库原题练一遍。</p>
+  <div class="how">
+    <span class="sw"><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i></span>
+    <p><b>可以划重点：</b>在任意原文或解析里选中文字，选中处旁边会弹出四种颜色和“擦除”。点已有的高亮可以选中它再擦掉。标记保存在这台设备的浏览器里，刷新后还在。</p>
+    <button class="ghost" id="clr" type="button">清除本页全部高亮</button>
+  </div>
+  <div class="mix">
+    <h2>题库 342 道逻辑题的题型分布</h2>
+    <div class="bars" id="bars"></div>
+    <p class="note">定义判断、日常推理、加强削弱合计占约 88%，复习时间按这个比例分。翻译推理题量少，但规则固定，学会就稳拿。真假与分析推理题少，但一旦遇到最费时间，值得单独练一下。</p>
+  </div>
+</header>
+<nav id="nav" aria-label="题型目录"></nav>
+<main id="main"></main>
+<footer>例题编号是逻辑推理练习页题库的出现顺序（第 1 到 342 题）。题型归类由题干提问方式和解析判断，个别题可能有交叉。</footer>
+</div>
+<div class="tb" id="tb" hidden><div role="toolbar" aria-label="高亮工具"><span>高亮</span>
+<button data-c="1" style="background:var(--h1)" aria-label="黄色"></button><button data-c="2" style="background:var(--h2)" aria-label="绿色"></button><button data-c="3" style="background:var(--h3)" aria-label="粉色"></button><button data-c="4" style="background:var(--h4)" aria-label="蓝色"></button><button class="er" data-c="0" type="button">擦除</button></div></div>
+
+<script>
+const SEC=[{"id": "dingyi", "short": "定义判断", "name": "定义判断题", "n": 152, "one": "题库里数量最多的一类，占近一半。题干给出一个概念，问哪个选项符合或不符合这个定义。不需要背知识，只需要核对要件。", "id_": ["题干先给“某某是指……”，问“根据上述定义，下列属于 / 不属于……的是”", "选项通常是四个具体的小故事或做法", "有时给 2 到 3 个定义，再问一个选项对应哪个定义"], "steps": ["先看问题：选符合的，还是选不符合的", "把定义拆成要件：谁（主体）、对谁（对象）、做什么（行为）、什么条件、什么结果", "逐项对照，只要缺一个要件或某个要件对不上，就排除", "选项很长时，只看和要件对应的那几个词"], "traps": ["选项只符合一半要件就选了", "把“不属于”看成“属于”", "用常识代替定义里的限定词，比如“事先”“单方面”“以……为目的”", "主体或对象被换成了别的人"], "ex": [0, 1], "extra": null}, {"id": "fanyi", "short": "翻译推理", "name": "翻译推理题", "n": 31, "one": "题干里出现一连串“如果……那么……”“只有……才……”“除非……否则……”。把它们翻译成箭头，再按规则推。", "id_": ["题干有明显的条件关联词", "“可以推出”“一定为真”“不可能为假”", "选项是新的条件句或结论句"], "steps": ["把每句话写成 A → B 的形式", "画出传递链：A → B → C，可以推出 A → C", "肯前必肯后，否后必否前，其余不能推", "选项如果被改写成“或者”，用“P → Q 等价于非 P 或 Q”转换"], "traps": ["肯定后件就肯定前件（逆推错误）", "否定前件就否定后件", "把“只有 A 才 B”写成 A → B，方向弄反", "忽略“并且”“或者”对条件强度的影响"], "ex": [2, 3], "extra": "<table class=\"logic\"><thead><tr><th>原话</th><th>写成</th><th>能推出</th><th>推不出</th></tr></thead><tbody><tr><td>如果 A，那么 B</td><td>A → B</td><td>A 成立 ⇒ B 成立；B 不成立 ⇒ A 不成立</td><td>B 成立 ⇒ A？不能</td></tr><tr><td>只有 A，才 B</td><td>B → A</td><td>B 成立 ⇒ A 必须成立；A 不成立 ⇒ B 不成立</td><td>A 成立 ⇒ B？不能</td></tr><tr><td>除非 A，否则 B</td><td>非 A → B</td><td>A 不成立 ⇒ B 成立</td><td>A 成立 ⇒ B？不能</td></tr><tr><td>A 并且 B</td><td>A ∧ B</td><td>A、B 都成立</td><td>无</td></tr><tr><td>A 或者 B</td><td>A ∨ B</td><td>非 A ⇒ B；非 B ⇒ A</td><td>A 成立 ⇒ B？不能</td></tr></tbody></table>"}, {"id": "jiaqiang", "short": "加强削弱", "name": "加强削弱题", "n": 59, "one": "题干给出一个论证，问哪个选项能加强、削弱它，或者问它依赖什么前提。先拆论点论据，再找两者之间的桥。", "id_": ["“最能削弱 / 加强 / 支持 / 质疑 / 反驳上述观点的是”", "“以下哪项是上述论证的前提 / 假设”", "题干里有“因此、所以、说明”这样的结论词"], "steps": ["找结论：通常在“因此、说明、可见”之后", "找论据：支撑结论的事实或数据", "想一想论据凭什么能推出结论，这个默认的假设就是桥", "按题目问法找选项：削弱就拆桥或否定，加强就搭桥或补论据"], "traps": ["无关项：话题相关，但不影响论证", "方向选反：削弱题选了加强项", "力度弱：带“有的、可能、一定程度”的选项通常不如明确否定的有力", "把“解释现象”当成“削弱”"], "ex": [4, 5], "extra": "<table class=\"logic\"><thead><tr><th>加强</th><th>削弱</th></tr></thead><tbody><tr><td>补充论据，让论据更有力</td><td>否定论据，说明论据不可靠</td></tr><tr><td>搭桥：说明论据与论点之间确有联系</td><td>拆桥：说明论据与论点之间没有联系</td></tr><tr><td>排除他因：其他原因都不成立</td><td>另有他因：换一个原因也能解释结果</td></tr><tr><td>举例：在别的场合也成立</td><td>否定论点：直接说结论不对</td></tr></tbody></table>"}, {"id": "zhenjia", "short": "真假与分析推理", "name": "真假与分析推理", "n": 11, "one": "题库里不多，但很容易丢分，因为没有套路就只能一个个试。几个人各说一句话，又告诉你有几句真、几句假，或者把条件摆成一个排列题。", "id_": ["“只有一个人说了真话”“三个人都猜对了一半”", "几个人各自做猜测，每人说两句", "几个人几件事一一对应，给出若干条排除条件"], "steps": ["先找矛盾关系的两句话，它们必有一真一假", "再用“只有几句为真”定位，其余的全是假的", "找不到矛盾时，假设某一句为真，推出后面是否自相矛盾", "排列类题把条件画成表，能排除的先排除，选项能直接代入就代入"], "traps": ["把“反对关系”当矛盾关系：两句可以同假，不能直接得出一真一假", "忘了“假”的另一半也是真假要重新判断", "代入时只验证部分条件，漏掉“每人恰好对一半”这种限制"], "ex": [6, 7], "extra": "<table class=\"logic\"><thead><tr><th>命题</th><th>它的矛盾命题（不能同真也不能同假）</th></tr></thead><tbody><tr><td>所有 A 都是 B</td><td>有的 A 不是 B</td></tr><tr><td>有的 A 是 B</td><td>所有 A 都不是 B</td></tr><tr><td>A 并且 B</td><td>非 A，或者非 B</td></tr><tr><td>A 或者 B</td><td>非 A，并且非 B</td></tr><tr><td>如果 A 那么 B</td><td>A，并且非 B</td></tr><tr><td>必然 A</td><td>可能非 A</td></tr></tbody></table>"}, {"id": "richang", "short": "日常推理", "name": "日常推理题", "n": 89, "one": "这一类最杂，包括“由这段话能推出什么”“最可能隐含的假设是什么”“哪项与题干观点一致”。共同点是不能超出题干。", "id_": ["“根据这段文字，可以知道”“可以推出”", "“以下各项中，与题干意思最接近的是”", "“上述推断最可能隐含了以下哪项假设”"], "steps": ["先读问法，确认是“能推出”还是“最可能”", "找题干里的限定条件、数字、时间", "选项能被题干支持才选，超出题干范围的、过于绝对的先排除", "类比、归纳类题找“前提相似”这个共同假设"], "traps": ["常识替代题干：选了正确但题干没说的", "绝对化：把“可能”当成“一定”", "偷换概念：把“增长”换成“好转”", "漏看题干里的限定条件，比如时间、范围"], "ex": [8, 9], "extra": null}];
+const EX=[{"no": 4, "tag": "定义判断 · 选不符合的", "passage": "“搭便车”是指一些人需要某种公共产品，但事先宣称自己并无需要，在别人付出代价取得后，他们就可不劳而获地享受成果。根据上述定义，下列不属于“搭便车”现象的是：", "q": "请选择最恰当的一项", "opts": ["轮船公司不肯兴建灯塔", "由政府出资安装路灯", "一部分住户逃避缴纳小区道路维修费用", "多人合租一辆汽车一同旅行"], "ans": "D", "expl": "“搭便车”的要件有三条：①自己需要这个公共产品；②自己不付出；③别人付出后坐享成果。A、B、C 都是别人或集体出钱，自己不出而享受。D 是多人合租，每个人都出了钱，只是各人出得少，不符合“不劳而获”。选 D。", "keys": ["不劳而获"], "tip": "先把定义拆成要件，再逐项核对。看清问的是“属于”还是“不属于”，这题问的是不属于，所以要找缺要件的那一项。"}, {"no": 67, "tag": "定义判断 · 选属于的", "passage": "霸王条款：一些经营者针对消费者单方面制定的逃避法定义务、减免自身责任的不平等的格式合同、通知、声明和店堂公告或者行业惯例等。下列属于霸王条款的是（）。", "q": "请选择最恰当的一项", "opts": ["无业青年王某等三人强行占据菜场停车场，并声称：要停车必须缴费十元", "个体户洪某恶狠狠地威胁街对面同样经营大米批发生意的赵某：“以后你要是敢比我早开门，我砸了你的店”", "某商场举行店庆时在电子广告牌上写明：全场火爆，满四百减一百五；请勿拥挤，排队入场；1.4米以下儿童入场必须有家长陪同", "某服装店玻璃窗上写着：打折期间售出商品概不退换"], "ans": "D", "expl": "“霸王条款”的要件：主体是经营者，对象是消费者，内容是单方面制定、逃避义务或减免自身责任。A 的主体是无业青年，不是经营者。B 的对象是同行，不是消费者。C 是正常的活动规则，没有减免责任。D 是经营者单方面写明“概不退换”，逃避了退换货义务，属于。选 D。", "keys": [], "tip": "主体、对象、内容三个要件，错一个就排除。选项里主体或对象换了人，是定义判断题最常见的设错方式。"}, {"no": 13, "tag": "翻译推理 · 否后必否前", "passage": "“如果你关掉了所有错误的大门，真理也将被拒之门外。”与以上判断的含义最为接近的是（）。", "q": "请选择最恰当的一项", "opts": ["如果真理被拒之门外，那一定是你关掉了所有错误的大门", "只有关掉所有错误的大门，真理才不会被拒之门外", "如果真理没有被拒之门外，那么，一定是没有关掉所有错误的大门", "若要接纳真理，必须拒绝错误"], "ans": "C", "expl": "原话写成：关掉所有错误的大门 → 真理被拒之门外。这是充分条件，规则是“肯前必肯后，否后必否前”。否定后件：真理没被拒之门外；就要否定前件：没有关掉所有错误的大门。C 与此一致。A 是逆推，B、D 都改变了条件方向。", "keys": [], "tip": "先翻译成箭头，再看选项是哪种推法：肯前、否后是对的，肯后、否前是错的。"}, {"no": 40, "tag": "翻译推理 · 等价转换", "passage": "2009年法国航空公司一架客机失事。如果法国及其他多国没有采取积极的搜救行动，就不会尽早发现失事飞机的残骸。如果失事飞机设计公司提供技术支持并且派专家参与失事原因分析，那么关于失事事件的调查报告就会更客观。以上陈述如果为真，以下哪项不可能为假？()", "q": "请选择最恰当的一项", "opts": ["或者法国及其他多国采取积极的搜救行动，或者不会尽早发现失事飞机的残骸", "除非失事飞机设计公司提供技术支持，否则就不会尽早发现失事飞机的残骸", "如果法国及其他多国采取积极的搜救行动，就会尽早发现失事飞机的残骸", "如果失事飞机设计公司提供技术支持，那么关于失事事件的调查报告就会更客观"], "ans": "A", "expl": "①没有积极搜救 → 不会尽早发现残骸。②技术支持且专家参与 → 报告更客观。问“不可能为假”，就是一定为真。“P → Q”等价于“非 P 或 Q”，把 ① 转换：积极搜救，或者不会尽早发现残骸，正是 A。B 把必要条件说错了方向，C 是肯定后件的逆推，D 漏了“并且派专家参与”这个条件。", "keys": [], "tip": "“如果 P 那么 Q”可以改写成“非 P 或 Q”，这个转换在选项被改写成“或者”时最好用。"}, {"no": 5, "tag": "加强削弱 · 削弱论点", "passage": "“东胡林人”遗址是新石器时代早期的人类文化遗址，在遗址中发现的人骨化石经鉴定属两个成年男性个体和一个少年女性个体。在少女遗骸的颈部位置有用小螺壳串制的项链，腕部佩戴有牛肋骨制成的骨镯。这说明在新时期时代早期，人类的审美意识己开始萌动。以下哪项如果为真，最能削弱上述判断？()", "q": "请选择最恰当的一项", "opts": ["新石器时代的饰品通常是石器", "出土的项链和骨镯都十分粗糙", "项链和骨镯的作用主要是表示社会地位", "两个成年男性遗骸的颈部有更大的项链"], "ans": "C", "expl": "论点：新石器时代早期人类的审美意识开始萌动。论据：少女遗骸戴着螺壳项链和骨镯。这里默认了“项链骨镯是为了好看的装饰”。C 说它们主要用来表示社会地位，拆掉了这个前提，论据就推不出论点。A、B、D 都没有碰到“装饰是否出于审美”。", "keys": [], "tip": "削弱题先找论点和论据，再找连接两者的假设，最强的削弱是否定这个假设。"}, {"no": 41, "tag": "加强削弱 · 反驳结论", "passage": "2013年公布的结果显示，全球已探明的天然气储量总计220亿立方米。天然气对全球能源的贡献占四分之一，以现在的消耗速率估算，仅能提供65年的能源供给。因此，为避免遭遇无天然气可用的困境，必须开发更多的替代性能源。以下如果哪项为真，最能够反驳上述结论？()", "q": "请选择最恰当的一项", "opts": ["近年来，天然气对全球能源的贡献率正逐步下降", "随着探测技术的发展，全球已探明的天然气储量大大高于以往", "由于新技术的应用，能源的使用效率比以往已经有了一定提高", "鉴于现代机械的设计习惯，天然气的能源地位无可替代"], "ans": "B", "expl": "结论：必须开发更多替代能源。理由：天然气只够用 65 年。B 说已探明储量大大增加，直接否定了“不够用”的理由，是最强的削弱。C 只说使用效率有所提高，并且“消耗速率”与“使用效率”不是一个概念，力度弱。A、D 与“是否够用”无关。", "keys": [], "tip": "在多个都有关系的选项里，选直接否定论据或论点的那个，“一定程度”“有的”这类弱化词通常力度不够。"}, {"no": 222, "tag": "真假推理 · 找矛盾关系", "passage": "对某受害人的五位朋友进行侦查分析后，四个警员各自做出了如下推测：甲说：“这五个人都有嫌疑。”乙说：“老陈不能逃脱干系，他有嫌疑。”丙说：“这五个人不都是有嫌疑的。”丁说：“五人中肯定有人作案。”如果四个人中只有一个人推测正确，那么以下哪项为真？()", "q": "请选择最恰当的一项", "opts": ["甲推测正确，老陈最有嫌疑", "丙推测正确，老陈没有嫌疑", "丙推测正确，但老陈可能作案", "丁推测正确，老陈有嫌疑"], "ans": "B", "expl": "甲说“五人都有嫌疑”，丙说“五人不都有嫌疑”，这两句互相矛盾，必有一真一假。题目说四句里只有一句为真，所以乙、丁两句都是假的。丁说“肯定有人作案”为假，说明没人作案，老陈当然没有嫌疑，此时乙也是假的，丙才是真的。选 B。", "keys": [], "tip": "真假话题先找矛盾关系的两句话，它们必有一真，剩下的就全是假的。"}, {"no": 49, "tag": "分析推理 · 假设与排除", "passage": "A、B、C、D参赛，其成绩各不相同，有甲、乙、丙三个对此作了猜测。甲说：“A得第一名，B得第二名”；乙说：“C得第二名，D得第四名”；丙说：“A得第二名，D得第四名”。实际情况是三人都猜对了一半。则下列哪项是正确的?()", "q": "请选择最恰当的一项", "opts": ["A第二，D第四", "A第一，C第三", "B第一，D第三", "C第一，D第四"], "ans": "D", "expl": "三个人都猜对一半。从选项出发代入：D 项 C 第一、D 第四。甲说 A 第一，与 C 第一矛盾，所以甲的另一半“B 第二”为真，于是 A 第三。乙“D 第四”为真，丙“D 第四”为真，每人恰好对一半，成立。A 项会使丙全对，B、C 项会造成矛盾，都排除。", "keys": [], "tip": "选项能直接代入时，用代入排除最快，每次只检查“是否每人恰好对一半”。"}, {"no": 32, "tag": "日常推理 · 推出能说明什么", "passage": "1990年元月，全国社会商品销售总额比上年同期增长1. 3％，彩色电视机销售量增加，服装基本持平，录音机、电冰箱等产品有不同程度的下降。我们应考虑到一个事实：1989年的春节在2月，而1990年的春节和元旦均在元月。我们知道，春节是中国人最看重的节日，也是一年中的消费高峰。因此，我们可以认为，到1990年元月底（）。", "q": "请选择最恰当的一项", "opts": ["我们在控制物价上涨方面已经取得了一定的成效", "我国的“市场疲软”状况已经出现了明显的转机", "我国的市场销售状况尚没有出现明显的好转", "元旦是一年中仅次于春节的第二个消费高峰"], "ans": "C", "expl": "1990 年元月销售额只增长 1.3%，但这一年春节和元旦都在元月，是消费高峰，而上年春节在 2 月。也就是说今年元月本来就应该更旺，增长这么少，说明市场销售并没有明显好转。选 C。A 说的是物价，B 说转机已出现，都与题干的信息方向相反，D 的“第二个消费高峰”题干没有提到。", "keys": [], "tip": "日常推理要抓题干里的限定条件，比如这题里的春节月份不同，选项不能超出题干能推出的范围。"}, {"no": 34, "tag": "日常推理 · 类比假设", "passage": "2005年上海市邀请英国的曼联俱乐部来沪进行友谊赛。仅仅一天时间，主办方的票房总收入就达到了八百万元。这一次上海市又邀请了西班牙的皇马俱乐部进行友谊赛，加上在赛场内的各项与球迷的互动活动，主办方准备在2天内取得一千万元的票房收入。以上推断最可能隐含了以下哪项假设？()", "q": "请选择最恰当的一项", "opts": ["这次活动进行两天比上次多出一倍的时间，可以吸引更多的球迷", "上海市很多人了错过了曼联的比赛，这一次可以得到补偿", "球迷对这两个俱乐部的喜爱程度、预计的上座率、票价等非常类似", "这一次主办方推出了互动活动，有更多的球迷可以参与"], "ans": "C", "expl": "题干用曼联一天卖出 800 万推出皇马两天卖出 1000 万，是一种类比。类比成立的前提是两件事相似，球迷喜爱程度、上座率、票价都类似，C 补上了这个前提。A、D 只说了活动更长或更丰富，没有保证两者可比。", "keys": [], "tip": "类比推理的假设几乎总是“被比较的两者在关键方面相同”。"}];
+const LS='yy-ltu-hl-v1';
+let store={};
+try{store=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e){store={}}
+function save(){try{localStorage.setItem(LS,JSON.stringify(store))}catch(e){}}
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+
+/* ---------- highlight engine ---------- */
+function colorsOf(id,n){const a=new Array(n).fill(0);(store[id]||[]).forEach(([s,e,c])=>{for(let i=s;i<e&&i<n;i++)a[i]=c});return a}
+function renderHL(c){
+  const t=c._t,id=c.dataset.id,col=colorsOf(id,t.length);
+  const key=new Array(t.length).fill(0);
+  if(c.classList.contains('showkey'))(c._keys||[]).forEach(k=>{let p=t.indexOf(k);if(p>=0)for(let i=p;i<p+k.length;i++)key[i]=1});
+  c.textContent='';let i=0;
+  while(i<t.length){let j=i+1;while(j<t.length&&col[j]===col[i]&&key[j]===key[i])j++;
+    const s=t.slice(i,j);
+    if(col[i]||key[i]){const m=el('span','hlm'+(col[i]?' c'+col[i]:'')+(key[i]?' key':''),s);if(!col[i])m.style.cursor='text';c.appendChild(m)}
+    else c.appendChild(document.createTextNode(s));
+    i=j}
+}
+function mkHL(text,id,tag,cls){const c=el(tag||'p','hl '+(cls||''));c._t=text;c.dataset.id=id;renderHL(c);return c}
+function pack(id,a){const r=[];let i=0;while(i<a.length){if(!a[i]){i++;continue}let j=i+1;while(j<a.length&&a[j]===a[i])j++;r.push([i,j,a[i]]);i=j}
+  if(r.length)store[id]=r;else delete store[id]}
+let pend=null,hideT=null;
+const tb=document.getElementById('tb');
+function offsetsIn(c,r){const p=document.createRange();p.selectNodeContents(c);p.setEnd(r.startContainer,r.startOffset);const s=p.toString().length;return[s,s+r.toString().length]}
+document.addEventListener('selectionchange',()=>{
+  const sel=getSelection();
+  if(!sel||!sel.rangeCount||sel.isCollapsed){clearTimeout(hideT);hideT=setTimeout(()=>{pend=null;tb.hidden=true},350);return}
+  const r=sel.getRangeAt(0);
+  const a=(r.startContainer.nodeType===3?r.startContainer.parentElement:r.startContainer).closest('.hl');
+  const b=(r.endContainer.nodeType===3?r.endContainer.parentElement:r.endContainer).closest('.hl');
+  if(!a||a!==b){tb.hidden=true;pend=null;return}
+  clearTimeout(hideT);
+  const [s,e]=offsetsIn(a,r);if(e<=s){tb.hidden=true;return}
+  pend={c:a,s,e};tb.hidden=false;place(r);
+});
+function place(r){
+  const rc=r.getBoundingClientRect(),w=tb.firstElementChild.offsetWidth||240,coarse=matchMedia('(pointer:coarse)').matches;
+  let x=Math.min(Math.max(rc.left+rc.width/2,w/2+8),innerWidth-w/2-8);
+  let y=coarse?rc.bottom+12:rc.top-50;
+  if(y<8)y=rc.bottom+12;
+  y=Math.min(Math.max(y,8),innerHeight-54);
+  tb.style.left=x+'px';tb.style.top=y+'px';
+}
+addEventListener('scroll',()=>{if(pend&&!tb.hidden){const s=getSelection();if(s.rangeCount&&!s.isCollapsed)place(s.getRangeAt(0))}},{passive:true});
+addEventListener('resize',()=>{tb.hidden=true});
+function applyHL(col){
+  if(!pend)return;const {c,s,e}=pend;const a=colorsOf(c.dataset.id,c._t.length);
+  for(let i=s;i<e;i++)a[i]=col;pack(c.dataset.id,a);save();renderHL(c);
+  getSelection().removeAllRanges();pend=null;tb.hidden=true;
+}
+tb.querySelectorAll('button').forEach(b=>{
+  b.addEventListener('pointerdown',e=>{e.preventDefault();applyHL(+b.dataset.c)});
+  b.addEventListener('mousedown',e=>e.preventDefault());
+  b.addEventListener('click',e=>{if(e.detail===0)applyHL(+b.dataset.c)});
+});
+document.addEventListener('click',e=>{
+  const m=e.target.closest&&e.target.closest('.hlm.c1,.hlm.c2,.hlm.c3,.hlm.c4');
+  if(m&&getSelection().isCollapsed){const r=document.createRange();r.selectNodeContents(m);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+});
+let armed=false;const clr=document.getElementById('clr');
+clr.onclick=()=>{
+  if(!armed){armed=true;clr.textContent='再点一次确认清除';setTimeout(()=>{armed=false;clr.textContent='清除本页全部高亮'},2500);return}
+  store={};save();armed=false;clr.textContent='清除本页全部高亮';document.querySelectorAll('.hl').forEach(renderHL)};
+
+/* ---------- page ---------- */
+const nav=document.getElementById('nav'),main=document.getElementById('main'),bars=document.getElementById('bars');
+const maxN=Math.max(...SEC.map(s=>s.n));
+SEC.forEach(s=>{
+  const a=el('a','bar');a.href='#'+s.id;
+  a.append(el('span','nm',s.name));
+  const tr=el('span','track'),f=el('span','fill');f.style.width=(s.n/maxN*100)+'%';tr.append(f);a.append(tr);
+  a.append(el('span','n',s.n+' 题'));bars.append(a);
+  const l=el('a',null,s.short);l.href='#'+s.id;l.dataset.id=s.id;nav.append(l);
+});
+function list(tag,items){const u=el(tag);items.forEach(x=>u.append(el('li',null,x)));return u}
+function exBox(ex){
+  const box=el('div','ex');
+  const hd=el('div','exhd');hd.append(el('span',null,ex.tag+' · 题库第 '+ex.no+' 题'));box.append(hd);
+  const pass=mkHL(ex.passage,'p'+ex.no,'p','pass');pass._keys=ex.keys;box.append(pass);
+  box.append(el('p','q',ex.q));
+  const ol=el('div','opts');box.append(ol);
+  const res=el('div','res');res.hidden=true;box.append(res);
+  function reset(){res.hidden=true;res.textContent='';pass.classList.remove('showkey');renderHL(pass);
+    ol.textContent='';ex.opts.forEach((t,i)=>{
+      const L='ABCDE'[i];const b=el('button','opt');b.type='button';b.append(el('b',null,L),el('span',null,t));
+      b.onclick=()=>pick(L);ol.append(b)})}
+  function pick(L){
+    const ok=L===ex.ans;
+    [...ol.children].forEach((b,i)=>{b.classList.add('lock');b.disabled=false;b.onclick=null;
+      const l='ABCDE'[i];if(l===ex.ans)b.classList.add('ok');else if(l===L)b.classList.add('no')});
+    res.hidden=false;res.textContent='';
+    res.append(el('p','verdict '+(ok?'ok':'no'),ok?'答对了，答案 '+ex.ans:'你选了 '+L+'，正确答案是 '+ex.ans));
+    const e=mkHL(ex.expl,'e'+ex.no,'p','expl');res.append(e);
+    if(ex.tip)res.append(el('p','tip',ex.tip));
+    const r=el('button','ghost redo','重做这题');r.type='button';r.onclick=reset;res.append(r);
+    pass.classList.add('showkey');renderHL(pass);
+  }
+  reset();return box}
+SEC.forEach(s=>{
+  const sec=el('section');sec.id=s.id;
+  const sh=el('div','sh');sh.append(el('h3',null,s.name),el('span','cnt','题库 '+s.n+' 题 · '+(s.n/342*100).toFixed(1)+'%'));
+  sec.append(sh,el('p','one',s.one));
+  const fx=el('div','facts');
+  [['怎么认出来',s.id_],['解题步骤',s.steps],['常见陷阱',s.traps]].forEach(([h,items],k)=>{
+    const f=el('div','fact');f.append(el('h4',null,h),list(k===1?'ol':'ul',items));fx.append(f)});
+  sec.append(fx);
+  if(s.extra){const w=el('div','tw');w.innerHTML=s.extra;sec.append(w)}
+  (s.ex||[]).forEach(i=>sec.append(exBox(EX[i])));
+  main.append(sec)});
+/* nav highlight */
+const links=[...nav.children];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.dataset.id===e.target.id));
+  const on=links.find(l=>l.classList.contains('on'));if(on&&on.scrollIntoView)on.scrollIntoView({inline:'nearest',block:'nearest'})}})},{rootMargin:'-20% 0px -70% 0px'});
+document.querySelectorAll('section').forEach(s=>io.observe(s));
+</script>

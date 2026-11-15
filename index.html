@@ -1,0 +1,58 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>行测备考入口</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* 一张课程表式的入口：五个科目为行，左讲义右练习 */
+:root{
+  --bg:#f3f5fa; --fg:#14213d; --muted:#5b6785; --card:#ffffff; --line:#d9deea;
+  --accent:#2f4fe0; --accent-fg:#ffffff; --soft:#e6ebfb;
+  --f-disp:"Noto Serif SC","Songti SC",serif; --f-body:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1527;--fg:#e8ecf8;--muted:#9aa6c6;--card:#182039;--line:#2b3658;--accent:#8aa0ff;--accent-fg:#0f1527;--soft:#243060;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1527;--fg:#e8ecf8;--muted:#9aa6c6;--card:#182039;--line:#2b3658;--accent:#8aa0ff;--accent-fg:#0f1527;--soft:#243060;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);padding-block:28px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));line-height:1.6}
+main{max-width:640px;margin:0 auto}
+.by{font-size:12px;color:var(--muted);letter-spacing:.08em}
+h1{font-family:var(--f-disp);font-size:34px;line-height:1.2;margin:6px 0 8px;text-wrap:balance}
+.lead{margin:0 0 22px;color:var(--muted);font-size:15px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.info{flex:1 1 180px;min-width:0}
+.name{font-size:18px;font-weight:700}
+.sub{font-size:13px;color:var(--muted)}
+.btns{display:flex;gap:8px;flex:0 0 auto}
+a.b{display:inline-block;padding:9px 16px;border-radius:7px;font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid var(--accent);color:var(--accent)}
+a.b.main{background:var(--accent);color:var(--accent-fg)}
+a.b:focus-visible{outline:3px solid var(--soft);outline-offset:2px}
+.note{font-size:12.5px;color:var(--muted);margin-top:18px}
+.tips{background:var(--soft);border-radius:10px;padding:14px 18px;margin:0 0 20px}
+.tips h2{font-size:14px;margin:0 0 6px;letter-spacing:.08em}
+.tips ul{margin:0;padding-left:18px;font-size:14px}
+.tips li{margin:4px 0}
+</style></head><body>
+<main>
+<div class="by">作者@RED.Yvette</div>
+<h1>行测备考入口</h1>
+<div class="tips"><h2>Tips</h2><ul>
+<li>题库可以按题目类型、错题、未做题等筛选</li>
+<li>在同一设备中做题记录会被保存，筛选未做题即可。换设备则刷新记录</li>
+<li>题库来源于网络资料。其中存在少部分有误解析，遇到这种情况无需过度深究</li>
+<li>文字题做了高亮功能，资料分析有内置计算器。可根据不同的测评要求选择性使用</li>
+</ul></div>
+<p class="lead">五个科目，每科一份速成讲义和一个练习页。练习页支持倒计时模式。</p>
+
+<div class="row"><div class="info"><div class="name">图形推理</div><div class="sub">688 题 · 对称、叠加、数量等规律</div></div>
+<div class="btns"><a class="b" href="graphics-notes.html">讲义</a><a class="b main" href="graphics-practice.html">练习</a></div></div>
+
+<div class="row"><div class="info"><div class="name">言语理解</div><div class="sub">1830 题 · 主旨、词语、语句表达</div></div>
+<div class="btns"><a class="b" href="verbal-notes.html">讲义</a><a class="b main" href="verbal-practice.html">练习</a></div></div>
+
+<div class="row"><div class="info"><div class="name">资料分析</div><div class="sub">1370 题 · 增长率、比重、倍数</div></div>
+<div class="btns"><a class="b" href="data-notes.html">讲义</a><a class="b main" href="data-practice.html">练习</a></div></div>
+
+<div class="row"><div class="info"><div class="name">逻辑推理</div><div class="sub">1132 题 · 定义判断、加强削弱、翻译推理</div></div>
+<div class="btns"><a class="b" href="logic-notes.html">讲义</a><a class="b main" href="logic-practice.html">练习</a></div></div>
+
+<div class="row"><div class="info"><div class="name">数量关系</div><div class="sub">1313 题 · 数字推理、行程、工程、排列组合</div></div>
+<div class="btns"><a class="b" href="quant-notes.html">讲义</a><a class="b main" href="quant-practice.html">练习</a></div></div>
+
+<p class="note"></p>
+</main></body></html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>数量关系题型讲义</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one reading column, sticky type index, worked examples as the only cards, selection toolbar docked at bottom */
+:root{
+  --bg:#f4f5f8;--surface:#ffffff;--ink:#1b2430;--ink2:#58647a;--line:#dce1ea;
+  --accent:#2b59c3;--accent-soft:#e3eafb;--good:#17794f;--good-soft:#dff3e8;--bad:#b83a33;--bad-soft:#fbe5e3;
+  --h1:#ffe48a;--h2:#b7ecc9;--h3:#ffc4d3;--h4:#b6d5ff;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Noto Serif SC","Songti SC","SimSun",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10151c;--surface:#171e28;--ink:#e7ecf3;--ink2:#9aa7ba;--line:#283241;
+  --accent:#86a7f4;--accent-soft:#1c2943;--good:#58c796;--good-soft:#16372a;--bad:#f08a82;--bad-soft:#40201f;
+  --h1:#6d5d16;--h2:#1f5a3b;--h3:#6b2b41;--h4:#1f4573;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10151c;--surface:#171e28;--ink:#e7ecf3;--ink2:#9aa7ba;--line:#283241;
+  --accent:#86a7f4;--accent-soft:#1c2943;--good:#58c796;--good-soft:#16372a;--bad:#f08a82;--bad-soft:#40201f;
+  --h1:#6d5d16;--h2:#1f5a3b;--h3:#6b2b41;--h4:#1f4573;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 120px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.wrap{max-width:860px;margin:0 auto}
+header{padding-top:28px}
+h1{font-family:var(--serif);font-size:clamp(26px,5vw,36px);line-height:1.25;margin:0 0 8px;text-wrap:balance;letter-spacing:.02em}
+.lead{color:var(--ink2);margin:0;max-width:62ch}
+.how{margin:18px 0 0;padding:12px 14px;border:1px dashed var(--line);border-radius:8px;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;font-size:14px}
+.how .sw{display:inline-flex;gap:4px;vertical-align:middle}
+.how .sw i{width:14px;height:14px;border-radius:50%;display:inline-block}
+.how p{margin:0;flex:1 1 280px;min-width:0}
+.ghost{font:inherit;font-size:13px;color:var(--ink2);background:none;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+.ghost:hover{color:var(--ink);border-color:var(--ink2)}
+.mix{margin:26px 0 0}
+.mix h2{font-size:13px;letter-spacing:.08em;color:var(--ink2);font-weight:500;margin:0 0 10px}
+.bars{display:grid;gap:7px}
+.bar{display:grid;grid-template-columns:minmax(120px,170px) 1fr 76px;gap:10px;align-items:center;font-size:14px;color:inherit;text-decoration:none}
+.bar:hover .nm{color:var(--accent)}
+.bar .track{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--accent);border-radius:5px;min-width:3px}
+.bar .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
+.note{color:var(--ink2);font-size:13.5px;margin:10px 0 0}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);margin:22px 0 0;padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav a{flex:0 0 auto;font-size:13.5px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;background:var(--surface);white-space:nowrap}
+nav a.on{background:var(--accent);border-color:var(--accent);color:#fff}
+section{padding-top:40px;scroll-margin-top:60px}
+.sh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+h3{font-family:var(--serif);font-size:24px;margin:0;text-wrap:balance}
+.cnt{font-size:13px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.one{margin:0 0 16px;color:var(--ink2);max-width:62ch}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.fact h4{margin:0 0 6px;font-size:12.5px;letter-spacing:.1em;color:var(--accent);font-weight:700}
+.fact ul,.fact ol{margin:0;padding-left:1.25em}
+.fact li{margin:0 0 5px}
+.fact li::marker{color:var(--ink2)}
+.ex{margin-top:26px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px clamp(14px,3vw,22px)}
+.exhd{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;color:var(--ink2);letter-spacing:.06em;margin-bottom:10px}
+.pass{font-family:var(--serif);font-size:16.5px;line-height:1.95;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.q{margin:12px 0 10px;font-weight:700}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:10px;text-align:left;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;line-height:1.6}
+.opt b{flex:0 0 1.4em;color:var(--ink2)}
+.opt:hover{border-color:var(--accent)}
+.opt:focus-visible,.ghost:focus-visible,nav a:focus-visible,.tb button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt.ok{background:var(--good-soft);border-color:var(--good)}
+.opt.no{background:var(--bad-soft);border-color:var(--bad)}
+.opt.lock{cursor:default}
+.res{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.verdict{font-weight:700;margin:0 0 6px}
+.verdict.ok{color:var(--good)}.verdict.no{color:var(--bad)}
+.expl{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.tip{margin:10px 0 0;padding:8px 12px;background:var(--accent-soft);border-radius:8px;font-size:14px}
+.redo{margin-top:10px}
+.hlm{border-radius:3px;padding:1px 0;-webkit-box-decoration-break:clone;box-decoration-break:clone;cursor:pointer}
+.c1{background:var(--h1)}.c2{background:var(--h2)}.c3{background:var(--h3)}.c4{background:var(--h4)}
+.key{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px}
+table.logic{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+.tw{overflow-x:auto;margin-top:12px}
+.logic th,.logic td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+.logic th{background:var(--accent-soft);font-weight:500}
+.tb{position:fixed;left:0;top:0;z-index:40;width:0;height:0;pointer-events:none}
+.tb[hidden]{display:none}
+.tb div{pointer-events:auto;position:absolute;left:0;top:0;transform:translateX(-50%);white-space:nowrap;display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.tb span{font-size:12.5px;color:var(--ink2);padding-right:2px}
+.tb button{width:30px;height:30px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.tb button.er{width:auto;border-radius:999px;padding:0 12px;font:inherit;font-size:13px;background:var(--bg);color:var(--ink)}
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink2);font-size:13.5px}
+@media (max-width:720px){
+  .facts{grid-template-columns:1fr;gap:16px}
+  .bar{grid-template-columns:110px 1fr 64px;gap:8px;font-size:13px}
+  .pass{font-size:16px}
+}
+@media (prefers-reduced-motion:no-preference){.opt{transition:border-color .15s,background .15s}}
+</style>
+
+<style>.sig{font:500 12px/1 "IBM Plex Mono","Noto Sans SC",monospace;letter-spacing:.06em;color:var(--muted,#6b7280);opacity:.85;margin:0 0 10px}</style>
+<div class="wrap">
+<div class="sig">作者@RED.Yvette</div>
+<header>
+  <h1>数量关系题型讲义</h1>
+  <p class="lead">按题库里真实出现的八类题型来讲，包括数字推理和数学运算。每类先看怎么认出来、怎么做、哪里容易错，再用题库原题练一遍。</p>
+  <div class="how">
+    <span class="sw"><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i></span>
+    <p><b>可以划重点：</b>在任意原文或解析里选中文字，选中处旁边会弹出四种颜色和“擦除”。点已有的高亮可以选中它再擦掉。标记保存在这台设备的浏览器里，刷新后还在。</p>
+    <button class="ghost" id="clr" type="button">清除本页全部高亮</button>
+  </div>
+  <div class="mix">
+    <h2>题库 478 道数量关系题的题型分布</h2>
+    <div class="bars" id="bars"></div>
+    <p class="note">数字推理占六成多，方程与综合排第二，其余六类每类题量都不多。复习时先把数字推理的几种套路吃透，再按行程、利润、排列组合的顺序练数学运算。</p>
+  </div>
+</header>
+<nav id="nav" aria-label="题型目录"></nav>
+<main id="main"></main>
+<footer>例题编号是数量关系练习页题库的原始序号（原题库 597 题，经逐题核对，已删除重复、题干残缺或有歧义的题，现 478 题）。数字推理的选项为原题选项，个别数学运算题的选项由系统补充。题型归类按题干关键词判断，个别题可能有交叉。</footer>
+</div>
+<div class="tb" id="tb" hidden><div role="toolbar" aria-label="高亮工具"><span>高亮</span>
+<button data-c="1" style="background:var(--h1)" aria-label="黄色"></button><button data-c="2" style="background:var(--h2)" aria-label="绿色"></button><button data-c="3" style="background:var(--h3)" aria-label="粉色"></button><button data-c="4" style="background:var(--h4)" aria-label="蓝色"></button><button class="er" data-c="0" type="button">擦除</button></div></div>
+
+<script>
+const SEC=[{"id": "shuzi", "short": "数字推理", "name": "数字推理题", "n": 308, "one": "题库里最多的一类，占六成多。每道题是一串数，问括号里填什么。它不考计算量，考的是“看见数字就想到几种固定套路”。", "id_": ["一串数字，中间或末尾有括号", "四个选项都是数字或分数", "问法固定：“括号里应填入的数字是”"], "steps": ["先看数字大小变化：平缓就做差，增长快就做商或递推", "数字接近平方、立方时，拆成幂次加减常数", "试相邻项的和、积，看看得到的新数列是不是等差、等比", "分数把分子分母分开看；项数多时，奇偶项分开或分组", "猜出规律后，把每一项都验证一遍再选"], "traps": ["只验证前两三项就选", "忽略了数列可能不止一种规律，选项里只有一个与你的规律吻合", "不会反向验证选项，应该把选项代回去检验", "看到分数就放弃，其实分子分母往往各有规律"], "ex": [0, 1, 2, 3, 4], "extra": "<table class=\"logic\"><thead><tr><th>数列特征</th><th>先试什么</th><th>例子</th></tr></thead><tbody><tr><td>变化平缓</td><td>做差，差不行再做差（多级等差）</td><td>0，4，18，48，100</td></tr><tr><td>增长很快</td><td>做商（等比），或者前一项乘数再加减常数</td><td>1，2，4，8，16</td></tr><tr><td>数字接近平方、立方</td><td>每项拆成 n² ± a 或 n³ ± a</td><td>2，5，10，17，26（n²+1）</td></tr><tr><td>每项都比较大又杂乱</td><td>相邻两项求和或求积；三项之间的递推</td><td>1，1，3，7，17，41</td></tr><tr><td>分数</td><td>分子分母分别找规律，必要时反约分、通分</td><td>2/3，1/2，3/7，7/18</td></tr><tr><td>项数较多、涨跌交替</td><td>奇偶项分开看，或者两项一组、三项一组</td><td>1，2，3，6，12，24（两两分组）</td></tr></tbody></table>"}, {"id": "xingcheng", "short": "行程问题", "name": "行程问题", "n": 26, "one": "相遇、追及、环形、流水、过桥，本质都是“路程 = 速度 × 时间”，抓住谁和谁比、比的是路程和还是路程差。", "id_": ["有人或车在运动，给出速度、时间或路程", "“相遇、追上、环形跑道、顺水逆水、车长”", "问的是时间、速度或距离"], "steps": ["画线段图，标出起点、终点、各人的方向", "判断是相向（用和）还是同向（用差）", "列出路程关系的方程", "单位要统一，米与千米、分钟与小时不要混"], "traps": ["同向与相向的速度处理反了", "环形跑道没有考虑圈数", "流水问题忘了水速的方向", "不换算单位"], "ex": [5, 6], "extra": "<table class=\"logic\"><thead><tr><th>类型</th><th>核心公式</th></tr></thead><tbody><tr><td>相遇</td><td>路程和 = 速度和 × 时间</td></tr><tr><td>追及</td><td>路程差 = 速度差 × 时间</td></tr><tr><td>环形相遇（背向）</td><td>每相遇一次，路程和 = 一圈</td></tr><tr><td>环形追及（同向）</td><td>每追上一次，路程差 = 一圈</td></tr><tr><td>流水行船</td><td>顺水速度 = 船速 + 水速；逆水速度 = 船速 - 水速</td></tr><tr><td>过桥、会车</td><td>路程 = 桥长或车长（的和）</td></tr></tbody></table>"}, {"id": "jingji", "short": "经济利润", "name": "经济利润问题", "n": 21, "one": "成本、售价、利润率、折扣、利息，每道题都是这几个量的换算。关键是统一以“成本”或“原价”为 1。", "id_": ["“进价、售价、利润、折扣、利率、本金”", "“打几折、获利百分之几”", "存款利息或股票涨跌"], "steps": ["写出成本、售价、利润三个量之间的关系", "把折扣和利润率都换成小数，统一用成本为 1", "按题目问法选基准量：利润率以成本为基准，涨幅以原来的为基准", "利息题先分清单利还是复利，是否扣税"], "traps": ["利润率的基准选错，用售价而不是成本", "折扣与让利混淆，打七折是原价的 70%，不是便宜 70%", "复利与单利混淆", "前后两次变化直接相加，应该连乘"], "ex": [7, 8], "extra": "<table class=\"logic\"><thead><tr><th>量</th><th>公式</th></tr></thead><tbody><tr><td>利润</td><td>利润 = 售价 - 成本</td></tr><tr><td>利润率</td><td>利润率 = 利润 ÷ 成本 = 售价 ÷ 成本 - 1</td></tr><tr><td>折扣</td><td>售价 = 原价 × 折扣</td></tr><tr><td>单利</td><td>利息 = 本金 × 利率 × 期数</td></tr><tr><td>复利</td><td>本息和 = 本金 × (1 + 利率)ⁿ</td></tr></tbody></table>"}, {"id": "gongcheng", "short": "工程与浓度", "name": "工程与浓度问题", "n": 9, "one": "题数很少，但套路最固定。工程把总量看成 1，浓度把溶质的量看成不变的“桥”。", "id_": ["“单独做需要几天，合作几天完成”“进水管、排水管”", "“盐水、酒精、浓度、混合”"], "steps": ["工程：总量为 1，效率为分数，合作效率相加", "休息、中途加人的，按实际工作天数分段算", "浓度：先算溶质质量，混合后总溶质除以总溶液", "检查：结果代回去看总量是否为 1"], "traps": ["合作时直接把天数相加", "休息的天数与工作的天数混淆", "浓度混合时对浓度本身求平均", "加水或蒸发时溶质也跟着变"], "ex": [9, 10], "extra": "<table class=\"logic\"><thead><tr><th>类型</th><th>怎么做</th></tr></thead><tbody><tr><td>工程</td><td>总量记 1，效率 = 1 ÷ 单独完成的时间，合作效率相加</td></tr><tr><td>给定人数天数</td><td>总量 = 人数 × 天数，更换人数后总量不变</td></tr><tr><td>进水排水</td><td>进水为正、排水为负，求净效率</td></tr><tr><td>浓度</td><td>浓度 = 溶质 ÷ 溶液，混合时溶质相加、溶液相加</td></tr></tbody></table>"}, {"id": "pailie", "short": "排列组合概率", "name": "排列组合与概率", "n": 10, "one": "先分清“分类还是分步”，再分清“有没有顺序”。“至少”类问题优先考虑反面。", "id_": ["“有多少种方法 / 选法 / 安排”", "“概率”“可能性”", "“至少有一个”"], "steps": ["判断要分类（加法）还是分步（乘法）", "有顺序用排列，无顺序用组合", "复杂条件先分情况，再检查有没有重复或遗漏", "概率题先想反面是否更简单"], "traps": ["排列与组合用反", "分类不彻底，漏情况或重复计数", "把“至少”硬算正面，耗时又易错"], "ex": [11, 12], "extra": "<table class=\"logic\"><thead><tr><th>类型</th><th>怎么做</th></tr></thead><tbody><tr><td>分类</td><td>每一类互不相交，各类方法数相加（加法原理）</td></tr><tr><td>分步</td><td>每一步都完成才算完成，各步方法数相乘（乘法原理）</td></tr><tr><td>排列 A(n,m)</td><td>从 n 个中取 m 个并排序：n×(n-1)×……共 m 个数相乘</td></tr><tr><td>组合 C(n,m)</td><td>不排序：A(n,m) ÷ m!</td></tr><tr><td>概率</td><td>概率 = 满足条件的情况数 ÷ 总情况数；“至少”用 1 减反面</td></tr></tbody></table>"}, {"id": "shulun", "short": "数论与日历", "name": "数论与日历问题", "n": 11, "one": "整除、余数、倍数、奇偶、星期和日历。这类题的关键都是“找到周期或整除关系”。", "id_": ["“被……整除、余数、倍数、质数、奇偶”", "“某天是星期几，几天后是星期几”", "“有几个五周”"], "steps": ["日历：星期以 7 天为周期，天数除以 7 看余数", "同余：余数与除数的差相同时，加上差再求最小公倍数", "奇偶性：奇偶相加、相乘的规律先排除", "代入选项验证，通常比推导快"], "traps": ["忘了星期的周期是 7", "同余问题没有利用余数与除数的关系", "计算个数时漏掉端点"], "ex": [13, 14], "extra": null}, {"id": "jihe", "short": "几何问题", "name": "几何问题", "n": 13, "one": "题库里的几何多是“应用型”：立方体表面、钟表夹角、堆放钢管、圆分平面。公式不多，重点是画图、找规律。", "id_": ["“正方体、涂漆、表面积、钟表、夹角、堆放”", "“最多分成几个区域”"], "steps": ["画图，用小例子找规律", "表面积用整体减内部，时钟用追及的思路", "堆放类用等差数列求和公式", "求最多区域问题，逐个增加图形并数新增区域"], "traps": ["时钟的速度记错：分针 6 度每分钟，时针 0.5 度每分钟", "表面积重复计算棱和角上的小方块", "堆放题忘了“剩余尽可能少”要取最大的 n"], "ex": [15, 16], "extra": null}, {"id": "fangcheng", "short": "方程与综合", "name": "方程与综合题", "n": 80, "one": "这一类最杂，包括容斥、最不利原则、等差数列求和、裂项、年龄、比例等。多数都能用设未知数列方程解决。", "id_": ["题干较长、数量关系复杂", "出现“至少、保证、都没有”", "式子需要巧算，如分数连加"], "steps": ["设未知数，把题目里每个关系翻译成方程", "“至少保证”用最不利原则，“都”“恰好”想容斥", "分数连加用裂项：1/(n(n+1)) = 1/n - 1/(n+1)", "解出结果后，回到题目检查是否合理，再看选项"], "traps": ["设元太多，方程复杂", "最不利原则忘了加 1", "容斥把两个集合都有的数重复计算", "巧算题没有先看结构，直接硬算"], "ex": [17, 18], "extra": null}];
+const EX=[{"no": 43, "tag": "数字推理 · 多级作差", "passage": "0，4，18，48，100，（）", "q": "括号处应填：", "opts": ["140", "160", "180", "200"], "ans": "C", "expl": "数字增长平缓，先做差：4，14，30，52，80，再做一次差：10，16，22，28，这是等差数列，下一项差为 28，所以括号处是 100 + 80 = 180。选 C。", "keys": [], "tip": "相邻项差距不大、没有明显倍数关系时，先做差，一次不行就再做一次。"}, {"no": 4, "tag": "数字推理 · 乘积拆分", "passage": "2，12，30，（）", "q": "括号处应填：", "opts": ["50", "65", "75", "56"], "ans": "D", "expl": "2 = 1×2，12 = 3×4，30 = 5×6，括号处是 7×8 = 56。每项都是两个相邻自然数的乘积，前一个数依次取 1，3，5，7。选 D。", "keys": [], "tip": "数字之间没有简单的差或商，又不是平方数时，试着把每个数拆成两数之积。"}, {"no": 1, "tag": "数字推理 · 相邻两项相加", "passage": "7，9，-1，5，()", "q": "括号处应填：", "opts": ["4", "2", "-1", "-3"], "ans": "D", "expl": "7 + 9 = 16，9 + (-1) = 8，(-1) + 5 = 4，5 + (-3) = 2。16，8，4，2 是公比为 1/2 的等比数列，所以括号处是 -3。选 D。", "keys": [], "tip": "出现负数、数字起伏大时，试试相邻两项求和，得到的新数列往往是等比或等差。"}, {"no": 28, "tag": "数字推理 · 递推", "passage": "1，1，3，7，17，41，()", "q": "括号处应填：", "opts": ["89", "99", "109", "119"], "ans": "B", "expl": "从第三项起，每一项等于前一项的 2 倍加上前前一项：2×1+1=3，2×3+1=7，2×7+3=17，2×17+7=41，所以括号处是 2×41+17 = 99。选 B。", "keys": [], "tip": "数列涨得快但不是等比，验证“第三项 = 前一项乘一个数加或减前前一项”这类递推。"}, {"no": 13, "tag": "数字推理 · 带系数的递推", "passage": "1，2，8，28，（）", "q": "括号处应填：", "opts": ["72", "100", "64", "56"], "ans": "B", "expl": "1×2 + 2×3 = 8，2×2 + 8×3 = 28，那么括号处是 8×2 + 28×3 = 16 + 84 = 100。每一项等于前前一项乘 2 加前一项乘 3。选 B。", "keys": [], "tip": "递推里系数不一定是 1，可以用前两项解两个小方程猜系数，再验证。"}, {"no": 478, "tag": "行程问题 · 环形相遇", "passage": "甲、乙2人同时从400米的环行跑道的一点Ａ背向出发，8分钟后2人第三次相遇。已知甲每秒钟比乙每秒多行0.1米，问两人第三次相遇的地点与A点沿跑道上的最短距离是（）", "q": "请选择最恰当的一项", "opts": ["116米", "176米", "224米", "234米"], "ans": "B", "expl": "环形跑道背向而行，每相遇一次，两人合走一圈。8 分钟共 480 秒，相遇三次，共走 400×3 = 1200 米。设乙速度为 x 米每秒，则 480(x + x + 0.1) = 1200，解得 x = 1.2。乙 8 分钟走了 576 米，576 - 400 = 176，所以相遇点离 A 点 176 米，另一个方向是 224 米，最短是 176 米。选 B。", "keys": [], "tip": "环形背向相遇，路程和等于周长的整数倍；最后求位置时要用路程对周长取余，再比较两个方向的长度。"}, {"no": 441, "tag": "行程问题 · 相对速度", "passage": "一列快车和一列慢车相对而行，其中快车的车长200米，慢车的车长250米，坐在慢车上的旅客看到快车驶过其所在窗口的时间是6秒钟，坐在快车上的旅客看到慢车驶过其所在窗口的时间是多少秒钟?", "q": "请选择最恰当的一项", "opts": ["6秒钟", "6．5秒钟", "7秒钟", "7．5秒钟"], "ans": "D", "expl": "慢车上的人看快车驶过，走过的相对路程是快车的车长 200 米，用 6 秒，说明两车相对速度是 200/6 米每秒。快车上的人看慢车驶过，相对路程是慢车的车长 250 米，相对速度不变，用时 250 ÷ (200/6) = 7.5 秒。选 D。", "keys": [], "tip": "相向而行时用速度和，同向时用速度差。“看见对面车驶过”就是用对面车的车长作路程。"}, {"no": 423, "tag": "经济利润 · 利润率", "passage": "一种商品如果以八折出售，可以获得相当于进价20%的毛利，那么如果以原价出售，可以获得相当于进价百分之几的毛利", "q": "请选择最恰当的一项", "opts": ["20%", "30%", "40%", "50%"], "ans": "D", "expl": "设原价为 x，进价为 y。八折后售价是 0.8x，毛利是进价的 20%，所以 0.8x = 1.2y，x = 1.5y。按原价出售，毛利是 0.5y，是进价的 50%。选 D。", "keys": [], "tip": "利润问题只抓三个量：成本、售价、利润，把“折扣、利润率”都化成成本的倍数。"}, {"no": 493, "tag": "经济利润 · 折扣", "passage": "某商品的进价为200元，原价为300元，折价销售后的利润率为5％，则此商品是按（）折销售的。", "q": "请选择最恰当的一项", "opts": ["7", "6", "8", "7.5"], "ans": "A", "expl": "折价后的售价 = 200×(1+5%) = 210 元，原价 300 元，折扣是 210 ÷ 300 = 0.7，也就是七折。选 A。", "keys": [], "tip": "折扣 = 售价 ÷ 原价；售价 = 进价 × (1 + 利润率)。"}, {"no": 447, "tag": "工程问题 · 设总量为 1", "passage": "某项工程，小王单独做需20天完成，小张单独做需30天完成。现在两人合做，但中间小王休息了4天，小张也休息了若干天，最后该工程用16天时间完成。问小张休息了几天？（）", "q": "请选择最恰当的一项", "opts": ["4天", "4.5天", "5天", "5.5天"], "ans": "A", "expl": "设总工作量为 1，小王每天做 1/20，小张每天做 1/30。小王休息 4 天，工作了 12 天，完成 12/20 = 3/5。剩下 2/5 由小张完成，需要 (2/5) ÷ (1/30) = 12 天，所以小张休息了 16 - 12 = 4 天。选 A。", "keys": [], "tip": "工程问题总量看成 1，把每个人的效率写成分数，休息和工作天数分开算。"}, {"no": 515, "tag": "工程问题 · 注水与排水", "passage": "一水池装有甲、乙、丙三个水管，甲、乙是进水管，丙是排水管，甲独开需10小时注满一池水，乙独开需6小时注满一池水，丙独开需15小时放光一池水，现在水池是空的，若三管齐开，问多少小时才能注满水池?", "q": "请选择最恰当的一项", "opts": ["5", "6", "5.5", "4.5"], "ans": "A", "expl": "设水池容量为 1，甲每小时注 1/10，乙每小时注 1/6，丙每小时排 1/15。三管齐开每小时净注入 1/10 + 1/6 - 1/15 = 1/5，所以 5 小时注满。选 A。", "keys": [], "tip": "注水记正，排水记负，把效率相加得到净效率，再用总量除以净效率。"}, {"no": 419, "tag": "排列组合 · 分类计数", "passage": "从1、2、3、4、5、6、7、8、9中任意选三个数，使他们的和为偶数，则有多少种选法？", "q": "请选择最恰当的一项", "opts": ["40", "41", "44", "46"], "ans": "C", "expl": "三个数的和为偶数，只有两种情况：两奇一偶，或者三个偶数。1 到 9 里有 5 个奇数、4 个偶数。两奇一偶：C(5,2) × 4 = 10 × 4 = 40。三个偶数：C(4,3) = 4。合计 44 种。选 C。", "keys": [], "tip": "先按条件分类，每一类里再分步相乘，各类相加；先判断题目是排列还是组合，看顺序有没有影响。"}, {"no": 432, "tag": "概率 · 正难则反", "passage": "一个盒子里面装有10张奖券,只有三张奖券上有中奖标志,现在5人每人摸出一张奖券,至少有一人的中奖概率是多少?()", "q": "请选择最恰当的一项", "opts": ["4/5", "7/10", "8/9", "11/12"], "ans": "D", "expl": "至少有一人中奖的反面是没有人中奖。5 人依次摸奖，10 张里有 7 张没中奖，所以没人中奖的概率是 (7/10)×(6/9)×(5/8)×(4/7)×(3/6) = 1/12。至少一人中奖的概率就是 1 - 1/12 = 11/12。选 D。", "keys": [], "tip": "“至少”的题先想反面，用 1 减去反面的概率。"}, {"no": 491, "tag": "数论与日历 · 等差求和", "passage": "如果某一年的7月份有5个星期四，它们的日期之和为80，那么这个月的3日是星期几?()", "q": "请选择最恰当的一项", "opts": ["一", "三", "五", "日"], "ans": "C", "expl": "五个星期四日期之和为 80。设第一个星期四是 x 号，则五个日期是 x，x+7，x+14，x+21，x+28，和为 5x + 70 = 80，解得 x = 2。所以 2 号是星期四，3 号是星期五。选 C。", "keys": [], "tip": "日历题里同一星期几的日期构成公差为 7 的等差数列，再按星期推算别的日子。"}, {"no": 497, "tag": "数论与日历 · 同余", "passage": "自然数P满足下列条件：P除以10的余数为9，P除以9的余数为8，P除以8的余数为7。如果：100<P<1000，则这样的P有几个?()", "q": "请选择最恰当的一项", "opts": ["不存在", "1个", "2个", "3个"], "ans": "C", "expl": "P 除以 10 余 9，除以 9 余 8，除以 8 余 7，说明余数都比除数小 1，所以 P + 1 能被 10、9、8 同时整除。10、9、8 的最小公倍数是 360，P + 1 = 360，720，1080 ……，P = 359，719，1079 ……，其中在 100 到 1000 之间的是 359 和 719，共 2 个。选 C。", "keys": [], "tip": "“余数比除数小同样的数”，就加上这个差，变成整除问题，再用最小公倍数。"}, {"no": 425, "tag": "几何问题 · 表面积与体积", "passage": "一个边长为8的正立方体，由若干个边长为1的正立方体组成，现在要将大立方体表面涂漆，问一共有多少小立方体被涂上了颜色？", "q": "请选择最恰当的一项", "opts": ["296", "324", "328", "384"], "ans": "A", "expl": "涂了漆的小方块就是最外层的，用总数减去没涂漆的内部。大正方体由 8×8×8 = 512 个小方块组成，内部没涂漆的是 6×6×6 = 216 个，所以涂了漆的有 512 - 216 = 296 个。选 A。", "keys": [], "tip": "求“表面”的个数，用整体减去里面，比逐面数更不容易错。"}, {"no": 420, "tag": "几何问题 · 时钟夹角", "passage": "从12时到13时，钟的时针与分针可成直角的机会有多少次？", "q": "请选择最恰当的一项", "opts": ["1", "2", "3", "4"], "ans": "B", "expl": "分针每分钟走 6 度，时针每分钟走 0.5 度，速度差 5.5 度每分钟。12 点整两针重合，要成直角，分针要比时针多走 90 度或 270 度，对应 90/5.5 和 270/5.5 分钟，都在 60 分钟之内，所以 12 点到 13 点有 2 次。选 B。", "keys": [], "tip": "时钟题当成追及问题，分针追时针，速度差是 5.5 度每分钟。"}, {"no": 422, "tag": "方程与综合 · 容斥原理", "passage": "一车行共有65辆小汽车,其中45辆有空调,30辆有高级音响,12辆兼而有之.既没有空调也没有高级音响的汽车有几辆?", "q": "请选择最恰当的一项", "opts": ["2", "8", "10", "15"], "ans": "A", "expl": "两样都没有的 = 总数 - (有空调 + 有音响 - 两样都有) = 65 - (45 + 30 - 12) = 65 - 63 = 2。选 A。", "keys": [], "tip": "两个集合的容斥：A∪B = A + B - A∩B，“都没有”就是总数减去 A∪B。"}, {"no": 442, "tag": "方程与综合 · 最不利原则", "passage": "有8种颜色的小球,数量分别为2、3、4、5、6、7、8、9，将它们放进一个袋子里面，问拿到同颜色的球最多需要几次？？", "q": "请选择最恰当的一项", "opts": ["6", "7", "8", "9"], "ans": "D", "expl": "要保证拿到同色的球，先考虑运气最差的情况：8 种颜色，每种各拿 1 个，一共 8 个，都不同色。再拿 1 个，不管什么颜色，都一定会与前面某个同色，所以最多拿 9 次。选 D。", "keys": [], "tip": "“至少拿几个才能保证”，答案 = 最不利情况的个数 + 1。"}];
+const LS='yy-qtu-hl-v1';
+let store={};
+try{store=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e){store={}}
+function save(){try{localStorage.setItem(LS,JSON.stringify(store))}catch(e){}}
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+
+/* ---------- highlight engine ---------- */
+function colorsOf(id,n){const a=new Array(n).fill(0);(store[id]||[]).forEach(([s,e,c])=>{for(let i=s;i<e&&i<n;i++)a[i]=c});return a}
+function renderHL(c){
+  const t=c._t,id=c.dataset.id,col=colorsOf(id,t.length);
+  const key=new Array(t.length).fill(0);
+  if(c.classList.contains('showkey'))(c._keys||[]).forEach(k=>{let p=t.indexOf(k);if(p>=0)for(let i=p;i<p+k.length;i++)key[i]=1});
+  c.textContent='';let i=0;
+  while(i<t.length){let j=i+1;while(j<t.length&&col[j]===col[i]&&key[j]===key[i])j++;
+    const s=t.slice(i,j);
+    if(col[i]||key[i]){const m=el('span','hlm'+(col[i]?' c'+col[i]:'')+(key[i]?' key':''),s);if(!col[i])m.style.cursor='text';c.appendChild(m)}
+    else c.appendChild(document.createTextNode(s));
+    i=j}
+}
+function mkHL(text,id,tag,cls){const c=el(tag||'p','hl '+(cls||''));c._t=text;c.dataset.id=id;renderHL(c);return c}
+function pack(id,a){const r=[];let i=0;while(i<a.length){if(!a[i]){i++;continue}let j=i+1;while(j<a.length&&a[j]===a[i])j++;r.push([i,j,a[i]]);i=j}
+  if(r.length)store[id]=r;else delete store[id]}
+let pend=null,hideT=null;
+const tb=document.getElementById('tb');
+function offsetsIn(c,r){const p=document.createRange();p.selectNodeContents(c);p.setEnd(r.startContainer,r.startOffset);const s=p.toString().length;return[s,s+r.toString().length]}
+document.addEventListener('selectionchange',()=>{
+  const sel=getSelection();
+  if(!sel||!sel.rangeCount||sel.isCollapsed){clearTimeout(hideT);hideT=setTimeout(()=>{pend=null;tb.hidden=true},350);return}
+  const r=sel.getRangeAt(0);
+  const a=(r.startContainer.nodeType===3?r.startContainer.parentElement:r.startContainer).closest('.hl');
+  const b=(r.endContainer.nodeType===3?r.endContainer.parentElement:r.endContainer).closest('.hl');
+  if(!a||a!==b){tb.hidden=true;pend=null;return}
+  clearTimeout(hideT);
+  const [s,e]=offsetsIn(a,r);if(e<=s){tb.hidden=true;return}
+  pend={c:a,s,e};tb.hidden=false;place(r);
+});
+function place(r){
+  const rc=r.getBoundingClientRect(),w=tb.firstElementChild.offsetWidth||240,coarse=matchMedia('(pointer:coarse)').matches;
+  let x=Math.min(Math.max(rc.left+rc.width/2,w/2+8),innerWidth-w/2-8);
+  let y=coarse?rc.bottom+12:rc.top-50;
+  if(y<8)y=rc.bottom+12;
+  y=Math.min(Math.max(y,8),innerHeight-54);
+  tb.style.left=x+'px';tb.style.top=y+'px';
+}
+addEventListener('scroll',()=>{if(pend&&!tb.hidden){const s=getSelection();if(s.rangeCount&&!s.isCollapsed)place(s.getRangeAt(0))}},{passive:true});
+addEventListener('resize',()=>{tb.hidden=true});
+function applyHL(col){
+  if(!pend)return;const {c,s,e}=pend;const a=colorsOf(c.dataset.id,c._t.length);
+  for(let i=s;i<e;i++)a[i]=col;pack(c.dataset.id,a);save();renderHL(c);
+  getSelection().removeAllRanges();pend=null;tb.hidden=true;
+}
+tb.querySelectorAll('button').forEach(b=>{
+  b.addEventListener('pointerdown',e=>{e.preventDefault();applyHL(+b.dataset.c)});
+  b.addEventListener('mousedown',e=>e.preventDefault());
+  b.addEventListener('click',e=>{if(e.detail===0)applyHL(+b.dataset.c)});
+});
+document.addEventListener('click',e=>{
+  const m=e.target.closest&&e.target.closest('.hlm.c1,.hlm.c2,.hlm.c3,.hlm.c4');
+  if(m&&getSelection().isCollapsed){const r=document.createRange();r.selectNodeContents(m);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+});
+let armed=false;const clr=document.getElementById('clr');
+clr.onclick=()=>{
+  if(!armed){armed=true;clr.textContent='再点一次确认清除';setTimeout(()=>{armed=false;clr.textContent='清除本页全部高亮'},2500);return}
+  store={};save();armed=false;clr.textContent='清除本页全部高亮';document.querySelectorAll('.hl').forEach(renderHL)};
+
+/* ---------- page ---------- */
+const nav=document.getElementById('nav'),main=document.getElementById('main'),bars=document.getElementById('bars');
+const maxN=Math.max(...SEC.map(s=>s.n));
+SEC.forEach(s=>{
+  const a=el('a','bar');a.href='#'+s.id;
+  a.append(el('span','nm',s.name));
+  const tr=el('span','track'),f=el('span','fill');f.style.width=(s.n/maxN*100)+'%';tr.append(f);a.append(tr);
+  a.append(el('span','n',s.n+' 题'));bars.append(a);
+  const l=el('a',null,s.short);l.href='#'+s.id;l.dataset.id=s.id;nav.append(l);
+});
+function list(tag,items){const u=el(tag);items.forEach(x=>u.append(el('li',null,x)));return u}
+function exBox(ex){
+  const box=el('div','ex');
+  const hd=el('div','exhd');hd.append(el('span',null,ex.tag+' · 题库第 '+ex.no+' 题'));box.append(hd);
+  const pass=mkHL(ex.passage,'p'+ex.no,'p','pass');pass._keys=ex.keys;box.append(pass);
+  box.append(el('p','q',ex.q));
+  const ol=el('div','opts');box.append(ol);
+  const res=el('div','res');res.hidden=true;box.append(res);
+  function reset(){res.hidden=true;res.textContent='';pass.classList.remove('showkey');renderHL(pass);
+    ol.textContent='';ex.opts.forEach((t,i)=>{
+      const L='ABCDE'[i];const b=el('button','opt');b.type='button';b.append(el('b',null,L),el('span',null,t));
+      b.onclick=()=>pick(L);ol.append(b)})}
+  function pick(L){
+    const ok=L===ex.ans;
+    [...ol.children].forEach((b,i)=>{b.classList.add('lock');b.disabled=false;b.onclick=null;
+      const l='ABCDE'[i];if(l===ex.ans)b.classList.add('ok');else if(l===L)b.classList.add('no')});
+    res.hidden=false;res.textContent='';
+    res.append(el('p','verdict '+(ok?'ok':'no'),ok?'答对了，答案 '+ex.ans:'你选了 '+L+'，正确答案是 '+ex.ans));
+    const e=mkHL(ex.expl,'e'+ex.no,'p','expl');res.append(e);
+    if(ex.tip)res.append(el('p','tip',ex.tip));
+    const r=el('button','ghost redo','重做这题');r.type='button';r.onclick=reset;res.append(r);
+    pass.classList.add('showkey');renderHL(pass);
+  }
+  reset();return box}
+SEC.forEach(s=>{
+  const sec=el('section');sec.id=s.id;
+  const sh=el('div','sh');sh.append(el('h3',null,s.name),el('span','cnt','题库 '+s.n+' 题 · '+(s.n/478*100).toFixed(1)+'%'));
+  sec.append(sh,el('p','one',s.one));
+  const fx=el('div','facts');
+  [['怎么认出来',s.id_],['解题步骤',s.steps],['常见陷阱',s.traps]].forEach(([h,items],k)=>{
+    const f=el('div','fact');f.append(el('h4',null,h),list(k===1?'ol':'ul',items));fx.append(f)});
+  sec.append(fx);
+  if(s.extra){const w=el('div','tw');w.innerHTML=s.extra;sec.append(w)}
+  (s.ex||[]).forEach(i=>sec.append(exBox(EX[i])));
+  main.append(sec)});
+/* nav highlight */
+const links=[...nav.children];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.dataset.id===e.target.id));
+  const on=links.find(l=>l.classList.contains('on'));if(on&&on.scrollIntoView)on.scrollIntoView({inline:'nearest',block:'nearest'})}})},{rootMargin:'-20% 0px -70% 0px'});
+document.querySelectorAll('section').forEach(s=>io.observe(s));
+</script>

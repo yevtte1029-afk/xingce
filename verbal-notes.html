@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>言语理解题型讲义</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one reading column, sticky type index, worked examples as the only cards, selection toolbar docked at bottom */
+:root{
+  --bg:#f4f5f8;--surface:#ffffff;--ink:#1b2430;--ink2:#58647a;--line:#dce1ea;
+  --accent:#2b59c3;--accent-soft:#e3eafb;--good:#17794f;--good-soft:#dff3e8;--bad:#b83a33;--bad-soft:#fbe5e3;
+  --h1:#ffe48a;--h2:#b7ecc9;--h3:#ffc4d3;--h4:#b6d5ff;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --serif:"Noto Serif SC","Songti SC","SimSun",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10151c;--surface:#171e28;--ink:#e7ecf3;--ink2:#9aa7ba;--line:#283241;
+  --accent:#86a7f4;--accent-soft:#1c2943;--good:#58c796;--good-soft:#16372a;--bad:#f08a82;--bad-soft:#40201f;
+  --h1:#6d5d16;--h2:#1f5a3b;--h3:#6b2b41;--h4:#1f4573;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10151c;--surface:#171e28;--ink:#e7ecf3;--ink2:#9aa7ba;--line:#283241;
+  --accent:#86a7f4;--accent-soft:#1c2943;--good:#58c796;--good-soft:#16372a;--bad:#f08a82;--bad-soft:#40201f;
+  --h1:#6d5d16;--h2:#1f5a3b;--h3:#6b2b41;--h4:#1f4573;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 120px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.wrap{max-width:860px;margin:0 auto}
+header{padding-top:28px}
+h1{font-family:var(--serif);font-size:clamp(26px,5vw,36px);line-height:1.25;margin:0 0 8px;text-wrap:balance;letter-spacing:.02em}
+.lead{color:var(--ink2);margin:0;max-width:62ch}
+.how{margin:18px 0 0;padding:12px 14px;border:1px dashed var(--line);border-radius:8px;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;font-size:14px}
+.how .sw{display:inline-flex;gap:4px;vertical-align:middle}
+.how .sw i{width:14px;height:14px;border-radius:50%;display:inline-block}
+.how p{margin:0;flex:1 1 280px;min-width:0}
+.ghost{font:inherit;font-size:13px;color:var(--ink2);background:none;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+.ghost:hover{color:var(--ink);border-color:var(--ink2)}
+.mix{margin:26px 0 0}
+.mix h2{font-size:13px;letter-spacing:.08em;color:var(--ink2);font-weight:500;margin:0 0 10px}
+.bars{display:grid;gap:7px}
+.bar{display:grid;grid-template-columns:minmax(120px,170px) 1fr 76px;gap:10px;align-items:center;font-size:14px;color:inherit;text-decoration:none}
+.bar:hover .nm{color:var(--accent)}
+.bar .track{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.bar .fill{display:block;height:100%;background:var(--accent);border-radius:5px;min-width:3px}
+.bar .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
+.note{color:var(--ink2);font-size:13.5px;margin:10px 0 0}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);margin:22px 0 0;padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav a{flex:0 0 auto;font-size:13.5px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;background:var(--surface);white-space:nowrap}
+nav a.on{background:var(--accent);border-color:var(--accent);color:#fff}
+section{padding-top:40px;scroll-margin-top:60px}
+.sh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+h3{font-family:var(--serif);font-size:24px;margin:0;text-wrap:balance}
+.cnt{font-size:13px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.one{margin:0 0 16px;color:var(--ink2);max-width:62ch}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.fact h4{margin:0 0 6px;font-size:12.5px;letter-spacing:.1em;color:var(--accent);font-weight:700}
+.fact ul,.fact ol{margin:0;padding-left:1.25em}
+.fact li{margin:0 0 5px}
+.fact li::marker{color:var(--ink2)}
+.ex{margin-top:26px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px clamp(14px,3vw,22px)}
+.exhd{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12.5px;color:var(--ink2);letter-spacing:.06em;margin-bottom:10px}
+.pass{font-family:var(--serif);font-size:16.5px;line-height:1.95;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.q{margin:12px 0 10px;font-weight:700}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:10px;text-align:left;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;line-height:1.6}
+.opt b{flex:0 0 1.4em;color:var(--ink2)}
+.opt:hover{border-color:var(--accent)}
+.opt:focus-visible,.ghost:focus-visible,nav a:focus-visible,.tb button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt.ok{background:var(--good-soft);border-color:var(--good)}
+.opt.no{background:var(--bad-soft);border-color:var(--bad)}
+.opt.lock{cursor:default}
+.res{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.verdict{font-weight:700;margin:0 0 6px}
+.verdict.ok{color:var(--good)}.verdict.no{color:var(--bad)}
+.expl{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.tip{margin:10px 0 0;padding:8px 12px;background:var(--accent-soft);border-radius:8px;font-size:14px}
+.redo{margin-top:10px}
+.hlm{border-radius:3px;padding:1px 0;-webkit-box-decoration-break:clone;box-decoration-break:clone;cursor:pointer}
+.c1{background:var(--h1)}.c2{background:var(--h2)}.c3{background:var(--h3)}.c4{background:var(--h4)}
+.key{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px}
+table.logic{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+.tw{overflow-x:auto;margin-top:12px}
+.logic th,.logic td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+.logic th{background:var(--accent-soft);font-weight:500}
+.tb{position:fixed;left:0;top:0;z-index:40;width:0;height:0;pointer-events:none}
+.tb[hidden]{display:none}
+.tb div{pointer-events:auto;position:absolute;left:0;top:0;transform:translateX(-50%);white-space:nowrap;display:flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.tb span{font-size:12.5px;color:var(--ink2);padding-right:2px}
+.tb button{width:30px;height:30px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+.tb button.er{width:auto;border-radius:999px;padding:0 12px;font:inherit;font-size:13px;background:var(--bg);color:var(--ink)}
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink2);font-size:13.5px}
+@media (max-width:720px){
+  .facts{grid-template-columns:1fr;gap:16px}
+  .bar{grid-template-columns:110px 1fr 64px;gap:8px;font-size:13px}
+  .pass{font-size:16px}
+}
+@media (prefers-reduced-motion:no-preference){.opt{transition:border-color .15s,background .15s}}
+</style>
+
+<style>.sig{font:500 12px/1 "IBM Plex Mono","Noto Sans SC",monospace;letter-spacing:.06em;color:var(--muted,#6b7280);opacity:.85;margin:0 0 10px}</style>
+<div class="wrap">
+<div class="sig">作者@RED.Yvette</div>
+<header>
+  <h1>言语理解题型讲义</h1>
+  <p class="lead">按题库里真实出现的六类题型来讲。每类先看怎么认出来、怎么做、哪里容易错，再用题库原题练一遍。</p>
+  <div class="how">
+    <span class="sw"><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i></span>
+    <p><b>可以划重点：</b>在任意原文或解析里选中文字，选中处旁边会弹出四种颜色和“擦除”。点已有的高亮可以选中它再擦掉。标记保存在这台设备的浏览器里，刷新后还在。</p>
+    <button class="ghost" id="clr" type="button">清除本页全部高亮</button>
+  </div>
+  <div class="mix">
+    <h2>题库 320 道言语题的题型分布</h2>
+    <div class="bars" id="bars"></div>
+    <p class="note">信息判断、主旨概括、词语理解合计占 97%，复习时间也应该按这个比例分。后三类在题库里很少，仍然配了讲解，遇到时不会陌生。</p>
+  </div>
+</header>
+<nav id="nav" aria-label="题型目录"></nav>
+<main id="main"></main>
+<footer>例题编号是题库中言语理解部分的出现顺序（第 1 到 320 题）。题型归类由题干提问方式判断，个别题可能有交叉。</footer>
+</div>
+<div class="tb" id="tb" hidden><div role="toolbar" aria-label="高亮工具"><span>高亮</span>
+<button data-c="1" style="background:var(--h1)" aria-label="黄色"></button><button data-c="2" style="background:var(--h2)" aria-label="绿色"></button><button data-c="3" style="background:var(--h3)" aria-label="粉色"></button><button data-c="4" style="background:var(--h4)" aria-label="蓝色"></button><button class="er" data-c="0" type="button">擦除</button></div></div>
+
+<script>
+const SEC=[{"id": "zhuzhi", "short": "主旨概括", "name": "主旨概括题", "n": 91, "one": "这类题要你说出一段话最想表达什么。段落里的例子、背景、解释都是配角，主角是作者要你记住的那句话。", "id_": ["提问里有“主旨、意在、旨在告诉我们、重点阐述、最适合作标题、最准确的复述”", "文段末尾常带“因此、所以、应该、必须”", "选项通常是几句概括性的观点，长度相近"], "steps": ["先判断结构：首句是总述就看首句；转折（但是、然而、其实）后面是重点；因果、递进的落点是结论；尾句带“应该、必须、关键”时优先看尾句", "圈出强调词：其中、特别注意、必须、关键、根本", "对比选项，选能概括重点的那个，同义替换是正常的，原文照抄反而可疑"], "traps": ["以偏概全：只对应了例子或某一句", "扩大范围：把具体对象换成更大的话题", "无中生有：出现“首要、唯一、最”等原文没有的程度词", "只说现象不说对策：尾句给了对策时，选项要体现对策"], "ex": [0, 1], "extra": null}, {"id": "xinxi", "short": "信息判断", "name": "信息判断对错题", "n": 178, "one": "题库里最多的一类，占一半以上。它不考你理解全文，考的是逐项核对：每个选项都要回到原文找依据。", "id_": ["“下列理解正确 / 不正确的是”“与原文相符 / 不相符”", "“可以推出、可以推断、没有提到、没有提及”", "选项都很具体，像是原文的改写"], "steps": ["先看提问方向：选对的还是选错的，写在题旁", "用选项里的专有词、数字、人名回原文定位", "逐项对照原文，只看原文说了什么，不凭常识判断", "留意绝对化、偷换概念、时间和范围错位，这些通常就是错项"], "traps": ["偷换概念：起源 / 形成，发现 / 发明，可能 / 一定", "绝对化：只有、所有、一定、首要、最", "张冠李戴：把 A 的特征安到 B 身上", "无中生有：选项里的信息原文根本没出现", "推断过度：原文说“可能”，选项说“就是”"], "ex": [2, 3], "extra": null}, {"id": "ciyu", "short": "词语理解", "name": "词语理解题", "n": 42, "one": "多数是成语或近义词选择填空，少数是问某个词句在文中的含义。关键是读懂语境，再用词义去对。", "id_": ["“填入括号内最恰当的词语”“最适合填入空格处”", "四个选项都是成语或四个字的词", "“能代替文中的某个词且意思不变”"], "steps": ["先读句子，判断想填的意思是褒、贬还是中性", "看前后文的关系：转折、并列、因果，决定填近义还是反义", "把成语的意思代入句子，检查对象、程度、搭配", "认不全成语时，先排除感情色彩不对的，再比程度"], "traps": ["望文生义：只凭字面猜成语意思", "褒贬错位：贬义词用在褒义语境", "对象错位：如“豆蔻年华”专指少女，不能指泛泛的青年", "忽略题干里的前提：比如有没有“受挫”“失败”"], "ex": [4, 5], "extra": null}, {"id": "shangxia", "short": "上下段推测", "name": "上下段推测", "n": 3, "one": "题库里只有 3 道，但解法固定，几分钟就能掌握。这类题的原则是：下文接着尾句说，上文由首句往前推。", "id_": ["“接下来最可能讲的是”“文章接下来讲述”", "“这段文字是文章的开头部分”", "“这段话之前 / 上文最可能谈到”"], "steps": ["接语题：只盯尾句，看它抛出的新话题、新问题、新对策", "把前文已经讲完的内容划掉，选项再重复就是错的", "选项里话题明显更大或更远的，也排除", "引语题（问上文）：盯首句，尤其是带代词“这、该、此”的句子"], "traps": ["选了前文刚讲过的内容", "选了话题过大的宏观判断", "被段落中间的细节带偏，忘了看尾句"], "ex": [6], "extra": null}, {"id": "gainian", "short": "概念理解判断", "name": "概念理解判断题", "n": 4, "one": "文中给出一个概念或一个论证，问你哪个选项能加强或削弱它。题库里这类只有 4 道，定义判断题几乎没有，但方法要会。", "id_": ["“最能削弱 / 加强 / 质疑 / 支持上述论点的是”", "“如果下列为真，哪项……”", "文中有“因为……所以……”或统计、调查结论"], "steps": ["拆结构：论点是什么，论据是什么", "找桥：从论据走到论点，默认了什么前提", "削弱：否定论点、拆桥、或指出另有他因；加强：搭桥、补论据、排除他因", "选项先分方向：题干问削弱，把加强项和无关项都划掉", "定义判断题：把定义拆成主体、条件、结果几个要素，逐项看选项是否都满足"], "traps": ["无关项：话题相关，但不影响论点成立与否", "方向选反：削弱题选了支持项", "力度弱：“有的、可能”类选项通常不如明确否定的有力", "只看选项，不回头看论点到底在证明什么"], "ex": [7, 8], "extra": null}, {"id": "luoji", "short": "语言逻辑推理", "name": "语言逻辑推理", "n": 2, "one": "题库里只有 2 道，都是基础的条件推断。真假话题是行测里常见的另一种写法，所以下面补了一道自编例题和一张速查表。", "id_": ["“如果……那么……”“只有……才……”“除非……否则……”", "几个人各说一句话，只有一人说真话", "“由此可以推出”“必然”“一定为真”"], "steps": ["把题干改写成符号：A→B", "肯定前件必肯定后件；否定后件必否定前件。其余推不出", "真假话：先找矛盾关系（两句话不能同真也不能同假），再用“只有一真”定位", "实在找不到矛盾，就假设某人说真话，推出别人全假，看是否自相矛盾"], "traps": ["肯定后件就肯定前件（逆推错误）", "否定前件就否定后件", "把“只有 A 才 B”当成“A→B”，方向弄反", "把“可能”当成“一定”"], "ex": [9, 10], "extra": "<table class=\"logic\"><thead><tr><th>原话</th><th>写成</th><th>能推出</th><th>推不出</th></tr></thead><tbody><tr><td>如果 A，那么 B</td><td>A → B</td><td>A 成立 ⇒ B 成立；B 不成立 ⇒ A 不成立</td><td>B 成立 ⇒ A？不能</td></tr><tr><td>只有 A，才 B</td><td>B → A</td><td>B 成立 ⇒ A 必须成立；A 不成立 ⇒ B 不成立</td><td>A 成立 ⇒ B？不能</td></tr><tr><td>除非 A，否则 B</td><td>非 A → B</td><td>A 不成立 ⇒ B 成立</td><td>A 成立 ⇒ B？不能</td></tr></tbody></table>"}];
+const EX=[{"no": 13, "tag": "主旨概括 · 尾句是结论", "passage": "从哲学的角度看，不可否认原始儒家思想中存在很多人性的光辉，而从历史的角度看，儒家思想世俗化之后建构的传统文化，最明显的缺陷就在于没有提供一种包含起码的人道主义精神的底线伦理。当我们在批判传统文化和创造新文化的时候，应该在人道主义的框架内建立一种起码的道德底线。", "q": "这段文字的主旨是:", "opts": ["提倡建立底线文明", "批判儒家思想的缺陷", "批判地继承儒家思想", "应创造什么样的新文化"], "ans": "A", "expl": "由题意可知：文中主旨句是最后一句话：当我们在批判传统文化和创造新文化的时候，应该在人道主义的框架内建立一种起码的道德底线。所以答案选A。", "keys": ["应该在人道主义的框架内建立一种起码的道德底线"], "tip": "套路：前面先“从哲学看”“从历史看”铺垫，后面落到“应该”。带“应该、必须、关键”的句子优先当主旨。B、C、D 都停在批判或继承，没有落到尾句提出的“建立底线”。"}, {"no": 1, "tag": "主旨概括 · 最准确的复述", "passage": "高新科技成果转化为生产力，有一个客观的转化过程。从基础理论到技术研究，进而设计、开发、研制出样品、样机，从试验或小批生产到建立经济规模的生产及相应的经营管理和销售服务,高科技成果转化成为具有使用价值和经济效益的社会生产力，要经过许多环节，要做大量具体的转化工作。其中，应特别注意的是必须切实解决经济规模生产的工艺问题。", "q": "对这段话最准确的复述是:", "opts": ["高新科技成果转化为生产力要经许多环节和做大量具体的转化工作", "解决经济规模生产的工艺问题是高新科技成果转化为生产力的首要任务", "解决经济规模生产的工艺问题与设计、开发等问题同等重要", "高新科技成果转化为生产力要做许多具体工作，主要包括解决经济规模生产的工艺问题"], "ans": "D", "expl": "第一步，分析文段。首先提出\"高新科技成果转化为生产力\"有一个转化过程，接着详细介绍了转化过程各个环节的转化工作。最后通过\"其中\"\"特别注意\"\"必须\"指出除了以上的转化工作，要特别注意\"经济规模生产的工艺问题\"。第二步，对比选项。D 项是对文段主旨的同义替换。因此，选择D选项。要点:A 项:没有强调高新科技成果转化为生产力需要解决经济规模生产的工艺问题，偏离重点。B 项:\"首要任务\"无中生有。C 项:没有提及\"高科技成果转化为生产力\"，偏离重点。", "keys": ["其中，应特别注意的是必须切实解决经济规模生产的工艺问题"], "tip": "“其中、特别注意、必须”是三个强调信号。A 只复述了前半段，漏掉重点；B 的“首要任务”原文没有；C 把重点说成“同等重要”，弱化了。D 同时包含全貌和重点。"}, {"no": 2, "tag": "信息判断 · 选正确项", "passage": "虽然春节、清明、端午和中秋都被称为中国四大传统节日，不过与其他三个相比，中秋要年轻许多，直到宋代才以\"节日\"的姿态示人。在中国的四大传统节日中，春节是资格最老的。虽然将正月初一定为春节是民国成立以后的事了,但是这个节日本身历史久远保守估计也已经在中国走过了三千年的历程。四大传统节日中排行第二的是端午节。端午节起源于先秦,而最终形成独立节日则是在汉魏时期。相比较之下,清明节比中秋节略年长些虽然有关清明从节气演变到节日的起源，一般会提到春秋时晋文公重耳和其忠臣介子推的传说但传说终归是传说清明节的最终生成则是在中国历史上最为辉煌的大唐。", "q": "下面对文本内容理解正确的一项是", "opts": ["中秋节在宋代以前就已经中国的节日了。", "端午节在先秦时期已形成独立节日。", "清明节与春秋时晋文公重耳和其忠臣介子推的传说未必有关。", "中秋节的最终是在中国历史上最为辉煌的大唐形成独立节日的。"], "ans": "C", "expl": "由题意可知：中秋要年轻许多，直到宋代才以\"节日\"的姿态示人。所以A 错误。端午节起源于先秦,而最终形成独立节日则是在汉魏时期。所以B 错误。一般会提到春秋时晋文公重耳和其忠臣介子推的传说但传说终归是传说清明节的最终生成则是在中国历史上最为辉煌的大唐。所以C 对，B错。所以答案选C。", "keys": ["端午节起源于先秦,而最终形成独立节日则是在汉魏时期", "传说终归是传说"], "tip": "B 把“起源于先秦”偷换成“已形成独立节日”，这是最常见的时间概念陷阱。C 用“未必有关”，语气弱，所以稳。"}, {"no": 39, "tag": "信息判断 · 选不相符项", "passage": "周人取代商人而统治中原时，仍然使用贝币。在西周的社会经济中，货物交换发展，贝币的流通量日趋庞大。如殷代甲骨文中不过是\"二朋\"\"十朋\"的数量，而周代的金文中，\"百朋\"甚至\"万朋\"等数字就很常见了。个人的交往动辄即有百朋之数，社会上的交易之大自然可想而知，由于天然贝的来源有限，于是出现了各种仿制贝，即以贝为模本，用其他材料仿制而成。现已出现的有蚌贝、骨贝、石砚、陶贝、铜贝、金贝等等，其中，最有重大意义的是贝与铜的结合而产生的铜贝。因为它是同后代的金属铸币连在一起的。周代的铜贝可以说是世界上最早的铜造货币。而春秋战国时代的楚国把铜贝发展为一种椭圆形的小铜币，中国的钱币学家称为\"鬼脸钱\"和\"蚊鼻钱\"。这是中国古代铜钱的滥觞。", "q": "下列说法中与原文不相符的一项是", "opts": ["周代的人们普遍采用贝壳作为流通手段", "从周到商可能经历了一定程度的通货膨胀", "贝币经历了由真实贝类到贝形态钱币的发展过程", "春秋战国时，楚国最早发明了铜贝"], "ans": "D", "expl": "由题意可知：周人取代商人而统治中原时，仍然使用贝币。所以A 对。如殷代甲骨文中不过是\"二朋\"\"十朋\"的数量，而周代的金文中，\"百朋\"甚至\"万朋\"等数字就很常见了。所以B 对。由于天然贝的来源有限，于是出现了各种仿制贝，即以贝为模本，用其他材料仿制而成。所以C 对。周代的铜贝可以说是世界上最早的铜造货币。周代最早发明了铜贝。所以选项D 错误。与原文内容不相符，所以答案选D。", "keys": ["周代的铜贝可以说是世界上最早的铜造货币", "楚国把铜贝发展为一种椭圆形的小铜币"], "tip": "这道是“选错的”。D 把“周代最早的铜贝”和“楚国发展出小铜币”混成了“楚国最早发明铜贝”，属于张冠李戴。先在题干圈出“不相符”，避免选成对的。"}, {"no": 3, "tag": "词语理解 · 成语填空", "passage": "每个人在学习新事物时都会有恐惧、畏难的心态，但如果因此而( ),那我们就永远也学习不到新知识。", "q": "填入括号内最恰当的词语是:", "opts": ["因噎废食", "瞻前顾后", "首鼠两端", "视为畏途"], "ans": "D", "expl": "因噎废食：因为吃饭噎住了，索性连饭也不吃了。\n瞻前顾后：形容顾虑过多，犹豫不决。\n首鼠两端：形容迟疑不决或动摇不定。\n视为畏途：比喻把事情看得艰难可怕，而不敢去做。\n句中的前提是“恐惧、畏难”，对应“视为畏途”，所以选 D。", "keys": ["恐惧、畏难"], "tip": "补充：A“因噎废食”要有“受过挫折后整体放弃”的前提，原句只说心里害怕，没有说发生过失败，所以不如 D 贴切。"}, {"no": 25, "tag": "词语理解 · 语境搭配", "passage": "长辈毕竟经历了更多的事，积累了更多的人生经验，因此对于他们分享的生活感悟，我们都要牢记在心，认真领悟，而不是当作( )。", "q": "填入括号内最恰当的词语是:", "opts": ["充耳不闻", "言不入耳", "马耳东风", "玉马朝周"], "ans": "C", "expl": "充耳不闻：塞住耳朵不听，形容有意不听别人的意见。\n言不入耳：指说的话不中听。\n马耳东风：比喻把别人的话当成耳边风。\n玉马朝周：指朝政腐败，贤臣出走。\n题干要的是“牢记、领悟”的反面，也就是不把长辈的话当回事。“充耳不闻”强调有意堵住，而这里长辈只是分享感悟，没有给出意见，所以选 C。", "keys": ["牢记在心，认真领悟", "而不是当作"], "tip": "看“而不是当作”前后的对立：前面是认真领悟，后面就要填“不放在心上”。D 玉马朝周跟主语完全不搭，先排除。"}, {"no": 145, "tag": "上下段推测 · 接语题", "passage": "潜水员在执行水下任务的过程中，普遍采用信号绳作为主要通信工具，即通过对信号绳的拉、抖组成系列信号来实现对陆上的简易通信。这种通信方式便捷、直接，但是其弊端也是显而易见的;信号绳仅能实现有限信息量的表达，且信号传输过程极易受复杂海水环境影响而中断或失效，带来安全隐患。2017 年，就曾有潜水员的信号绳被缠住而险些发生事故。可以说，潜水员在执行水下任务时，是真正的命悬一\"线\"。针对信号绳的诸多弊病，结合智能穿戴设备在民用领域的快速发展，面向军事潜水领城的智能穿戴产品逐新成为科技工作者的研发热点之一。", "q": "这段文字接下来最可能讲的是", "opts": ["军事潜水领域智能穿戴设备的关键技术", "信号绳在军事领域传递信息中的缺陷", "日常生活中智能穿戴设备的发展现状", "人工智能技术引入穿戴设备的前景预期"], "ans": "A", "expl": "根据提问方式可知，本题为接语选择题，重点关注文段尾句。\n尾句指出，针对信号绳的弊病，并结合智能穿戴设备在民用领域的发展，面向军事潜水领域的智能穿戴产品成为研发热点。下文要围绕这个新话题展开，A 讲军事潜水智能穿戴的关键技术最贴合。\nB 的信号绳缺陷已经在前文讲完；C 讲日常生活，偏离军事潜水领域。", "keys": ["面向军事潜水领城的智能穿戴产品逐新成为科技工作者的研发热点之一"], "tip": "接语题只问一件事：尾句抛出了什么新话题。凡是前文已经说完的内容，一律不选。"}, {"no": 154, "tag": "加强削弱 · 削弱论证", "passage": "一项调查结果表明，某水域受到石油泄漏污染后，水鸟的存活率为95%。其根据是附近某动物诊所的统计:该诊所诊治的受污染伤害的水鸟中，有二十分之一死去。", "q": "在下列各项事实中，最能对水鸟存活率的结论提出质疑的是:( )", "opts": ["有20%的水鸟受到石油污染的严重伤害", "在受污染伤害的水鸟中存活希望较大的才被送到诊所", "死去的水鸟是体型较大的水鸟", "有些接受过治疗的水鸟又被重新送回诊所"], "ans": "B", "expl": "本题为质疑题。题目中以在诊所中接受治疗的水鸟有二十分之一死去为依据，断定水鸟的存活率为95%，而B 项中提出存活希望较大的才被送到诊所，这样的鸟都有5%死掉了，存活希望不大的鸟死去的可能性就更大了，所以，对水鸟存活率的结论提出了有力的质疑，故本题正确答案为B。", "keys": ["水鸟的存活率为95%", "附近某动物诊所的统计"], "tip": "先拆：论点是“存活率 95%”，论据是“诊所里死了 5%”。桥是“诊所里的鸟能代表所有受污染的鸟”。B 说只有存活希望大的鸟才送诊所，等于拆掉了这座桥。A、C、D 都没碰到“样本能否代表整体”。"}, {"no": 278, "tag": "加强削弱 · 五选一", "passage": "一家信用卡公司决定投资建立数据库,以便能够利用该数据库向更广泛的客户销售更多种类的商品和服务,从而获得竞争优势。", "q": "以下哪一项陈述(如果正确)削弱了上述论点?", "opts": ["其他信用卡公司已经建立了数据库系统。", "许多其他信用卡公司正通过降低利息以获得竞争优势。", "数据挖掘技术是当今商业竞争环境下的最新趋势。", "数据库的网络系统适应信用卡公司目前的系统。", "产品和服务的增加并非客户最期待的。"], "ans": "E", "expl": "由题意可知：选项A、C、D 支持了上述观点。B 和上述观点讲的无关。一家信用卡公司决定投资建立数据库,以便能够利用该数据库向更广泛的客户销售更多种类的商品和服务,从而获得竞争优势。信用卡公司的目的是向客户销售更多种类的商品和服务。E 选项说产品和服务的增加并非客户最期待的。削弱了上述观点，所以答案选E。", "keys": ["向更广泛的客户销售更多种类的商品和服务"], "tip": "公司的目标是靠“卖更多产品和服务”获得优势。E 说客户并不期待这个，直接否定了行动与目标之间的联系。A、C、D 其实是在支持，B 与论点无关。"}, {"no": 224, "tag": "语言逻辑 · 条件推断", "passage": "在计算机语言中有一种逻辑运算，如果两个数同一位上都是0 时，其和为零;一个为0 一个为1 时或两个都是1 时，其和为1，", "q": "那么:( )", "opts": ["如果和为1，则两数必然都为1", "如果和为0，则两数必然都为0", "如果和为0，则两数中可能有一个为1", "如果和为1，则两数中至少有一个为0"], "ans": "B", "expl": "从题干可知，只有两个数同一位上都是0，其和才为零，即B 项正确而C 项错误。如果和为1，则可能一个为0 一个为1，A 项错误；也可能两数都为1，D 项也错误。故答案选B。", "keys": ["两个数同一位上都是0 时，其和为零"], "tip": "把题干改写成两条规则：(0,0)→和为0；(0,1)或(1,1)→和为1。要看结论，就反着读：和为0 只可能来自(0,0)，所以两数必然都为0。"}, {"no": "自编", "tag": "语言逻辑 · 真假话（自编示例）", "passage": "甲、乙、丙三人中，只有一个人说了真话。\n甲说：“乙在说谎。”\n乙说：“丙在说谎。”\n丙说：“甲和乙都在说谎。”", "q": "说真话的是谁？", "opts": ["甲", "乙", "丙", "无法确定"], "ans": "B", "keys": ["只有一个人说了真话"], "expl": "先找矛盾：甲说“乙说谎”，乙说“丙说谎”，没有直接的矛盾，所以用假设法。\n假设丙说真话：则甲、乙都说谎。可是甲说谎意味着乙没说谎，与“乙说谎”冲突，所以丙在说谎。\n丙说谎，那么乙说的“丙在说谎”就是真的。已经有一个真话，其余必为假：甲说“乙说谎”为假，符合；丙为假，符合。\n答案：乙。", "tip": "这道题题库里没有，是为了练真假话方法自编的。步骤：假设一个人为真，推出别人全假，看是否自相矛盾。"}];
+const LS='yy-vtu-hl-v1';
+let store={};
+try{store=JSON.parse(localStorage.getItem(LS)||'{}')||{}}catch(e){store={}}
+function save(){try{localStorage.setItem(LS,JSON.stringify(store))}catch(e){}}
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+
+/* ---------- highlight engine ---------- */
+function colorsOf(id,n){const a=new Array(n).fill(0);(store[id]||[]).forEach(([s,e,c])=>{for(let i=s;i<e&&i<n;i++)a[i]=c});return a}
+function renderHL(c){
+  const t=c._t,id=c.dataset.id,col=colorsOf(id,t.length);
+  const key=new Array(t.length).fill(0);
+  if(c.classList.contains('showkey'))(c._keys||[]).forEach(k=>{let p=t.indexOf(k);if(p>=0)for(let i=p;i<p+k.length;i++)key[i]=1});
+  c.textContent='';let i=0;
+  while(i<t.length){let j=i+1;while(j<t.length&&col[j]===col[i]&&key[j]===key[i])j++;
+    const s=t.slice(i,j);
+    if(col[i]||key[i]){const m=el('span','hlm'+(col[i]?' c'+col[i]:'')+(key[i]?' key':''),s);if(!col[i])m.style.cursor='text';c.appendChild(m)}
+    else c.appendChild(document.createTextNode(s));
+    i=j}
+}
+function mkHL(text,id,tag,cls){const c=el(tag||'p','hl '+(cls||''));c._t=text;c.dataset.id=id;renderHL(c);return c}
+function pack(id,a){const r=[];let i=0;while(i<a.length){if(!a[i]){i++;continue}let j=i+1;while(j<a.length&&a[j]===a[i])j++;r.push([i,j,a[i]]);i=j}
+  if(r.length)store[id]=r;else delete store[id]}
+let pend=null,hideT=null;
+const tb=document.getElementById('tb');
+function offsetsIn(c,r){const p=document.createRange();p.selectNodeContents(c);p.setEnd(r.startContainer,r.startOffset);const s=p.toString().length;return[s,s+r.toString().length]}
+document.addEventListener('selectionchange',()=>{
+  const sel=getSelection();
+  if(!sel||!sel.rangeCount||sel.isCollapsed){clearTimeout(hideT);hideT=setTimeout(()=>{pend=null;tb.hidden=true},350);return}
+  const r=sel.getRangeAt(0);
+  const a=(r.startContainer.nodeType===3?r.startContainer.parentElement:r.startContainer).closest('.hl');
+  const b=(r.endContainer.nodeType===3?r.endContainer.parentElement:r.endContainer).closest('.hl');
+  if(!a||a!==b){tb.hidden=true;pend=null;return}
+  clearTimeout(hideT);
+  const [s,e]=offsetsIn(a,r);if(e<=s){tb.hidden=true;return}
+  pend={c:a,s,e};tb.hidden=false;place(r);
+});
+function place(r){
+  const rc=r.getBoundingClientRect(),w=tb.firstElementChild.offsetWidth||240,coarse=matchMedia('(pointer:coarse)').matches;
+  let x=Math.min(Math.max(rc.left+rc.width/2,w/2+8),innerWidth-w/2-8);
+  let y=coarse?rc.bottom+12:rc.top-50;
+  if(y<8)y=rc.bottom+12;
+  y=Math.min(Math.max(y,8),innerHeight-54);
+  tb.style.left=x+'px';tb.style.top=y+'px';
+}
+addEventListener('scroll',()=>{if(pend&&!tb.hidden){const s=getSelection();if(s.rangeCount&&!s.isCollapsed)place(s.getRangeAt(0))}},{passive:true});
+addEventListener('resize',()=>{tb.hidden=true});
+function applyHL(col){
+  if(!pend)return;const {c,s,e}=pend;const a=colorsOf(c.dataset.id,c._t.length);
+  for(let i=s;i<e;i++)a[i]=col;pack(c.dataset.id,a);save();renderHL(c);
+  getSelection().removeAllRanges();pend=null;tb.hidden=true;
+}
+tb.querySelectorAll('button').forEach(b=>{
+  b.addEventListener('pointerdown',e=>{e.preventDefault();applyHL(+b.dataset.c)});
+  b.addEventListener('mousedown',e=>e.preventDefault());
+  b.addEventListener('click',e=>{if(e.detail===0)applyHL(+b.dataset.c)});
+});
+document.addEventListener('click',e=>{
+  const m=e.target.closest&&e.target.closest('.hlm.c1,.hlm.c2,.hlm.c3,.hlm.c4');
+  if(m&&getSelection().isCollapsed){const r=document.createRange();r.selectNodeContents(m);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+});
+let armed=false;const clr=document.getElementById('clr');
+clr.onclick=()=>{
+  if(!armed){armed=true;clr.textContent='再点一次确认清除';setTimeout(()=>{armed=false;clr.textContent='清除本页全部高亮'},2500);return}
+  store={};save();armed=false;clr.textContent='清除本页全部高亮';document.querySelectorAll('.hl').forEach(renderHL)};
+
+/* ---------- page ---------- */
+const nav=document.getElementById('nav'),main=document.getElementById('main'),bars=document.getElementById('bars');
+const maxN=Math.max(...SEC.map(s=>s.n));
+SEC.forEach(s=>{
+  const a=el('a','bar');a.href='#'+s.id;
+  a.append(el('span','nm',s.name));
+  const tr=el('span','track'),f=el('span','fill');f.style.width=(s.n/maxN*100)+'%';tr.append(f);a.append(tr);
+  a.append(el('span','n',s.n+' 题'));bars.append(a);
+  const l=el('a',null,s.short);l.href='#'+s.id;l.dataset.id=s.id;nav.append(l);
+});
+function list(tag,items){const u=el(tag);items.forEach(x=>u.append(el('li',null,x)));return u}
+function exBox(ex){
+  const box=el('div','ex');
+  const hd=el('div','exhd');hd.append(el('span',null,ex.tag+' · 题库第 '+ex.no+' 题'));box.append(hd);
+  const pass=mkHL(ex.passage,'p'+ex.no,'p','pass');pass._keys=ex.keys;box.append(pass);
+  box.append(el('p','q',ex.q));
+  const ol=el('div','opts');box.append(ol);
+  const res=el('div','res');res.hidden=true;box.append(res);
+  function reset(){res.hidden=true;res.textContent='';pass.classList.remove('showkey');renderHL(pass);
+    ol.textContent='';ex.opts.forEach((t,i)=>{
+      const L='ABCDE'[i];const b=el('button','opt');b.type='button';b.append(el('b',null,L),el('span',null,t));
+      b.onclick=()=>pick(L);ol.append(b)})}
+  function pick(L){
+    const ok=L===ex.ans;
+    [...ol.children].forEach((b,i)=>{b.classList.add('lock');b.disabled=false;b.onclick=null;
+      const l='ABCDE'[i];if(l===ex.ans)b.classList.add('ok');else if(l===L)b.classList.add('no')});
+    res.hidden=false;res.textContent='';
+    res.append(el('p','verdict '+(ok?'ok':'no'),ok?'答对了，答案 '+ex.ans:'你选了 '+L+'，正确答案是 '+ex.ans));
+    const e=mkHL(ex.expl,'e'+ex.no,'p','expl');res.append(e);
+    if(ex.tip)res.append(el('p','tip',ex.tip));
+    const r=el('button','ghost redo','重做这题');r.type='button';r.onclick=reset;res.append(r);
+    pass.classList.add('showkey');renderHL(pass);
+  }
+  reset();return box}
+SEC.forEach(s=>{
+  const sec=el('section');sec.id=s.id;
+  const sh=el('div','sh');sh.append(el('h3',null,s.name),el('span','cnt','题库 '+s.n+' 题 · '+(s.n/320*100).toFixed(1)+'%'));
+  sec.append(sh,el('p','one',s.one));
+  const fx=el('div','facts');
+  [['怎么认出来',s.id_],['解题步骤',s.steps],['常见陷阱',s.traps]].forEach(([h,items],k)=>{
+    const f=el('div','fact');f.append(el('h4',null,h),list(k===1?'ol':'ul',items));fx.append(f)});
+  sec.append(fx);
+  if(s.extra){const w=el('div','tw');w.innerHTML=s.extra;sec.append(w)}
+  (s.ex||[]).forEach(i=>sec.append(exBox(EX[i])));
+  main.append(sec)});
+/* nav highlight */
+const links=[...nav.children];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.dataset.id===e.target.id));
+  const on=links.find(l=>l.classList.contains('on'));if(on&&on.scrollIntoView)on.scrollIntoView({inline:'nearest',block:'nearest'})}})},{rootMargin:'-20% 0px -70% 0px'});
+document.querySelectorAll('section').forEach(s=>io.observe(s));
+</script>
