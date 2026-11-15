@@ -253,7 +253,7 @@ function renderHL(c){
 }
 function mkTable(rows){var w=el('div','tbw'),t=el('table','dt'),tb=el('tbody');rows.forEach(function(r,i){var tr=el('tr');r.forEach(function(c){tr.appendChild(el(i===0?'th':'td',null,c));});tb.appendChild(tr);});t.appendChild(tb);w.appendChild(t);return w;}
 function mkMat(m){var d=el('details','mat');d.open=true;d.appendChild(el('summary',null,'资料（点击收起/展开）'));m.t.forEach(function(p){d.appendChild(el('p',null,p));});m.tb.forEach(function(t){d.appendChild(mkTable(t));});(m.im||[]).forEach(function(n){d.appendChild(mkFig(n));});return d;}
-function mkFig(n){var f=el('figure','fig'),i=document.createElement('img');i.src=IMG[n]?IMG[n][0]:''+n+'.jpg';i.alt='题目图表';i.loading='lazy';i.addEventListener('click',function(){openLB(i.src);});f.appendChild(i);f.appendChild(el('figcaption',null,'点击图片放大'));return f;}
+function mkFig(n){var f=el('figure','fig'),i=document.createElement('img');i.src=IMG[n]?IMG[n][0]:'img/'+n+'.jpg';i.alt='题目图表';i.loading='lazy';i.addEventListener('click',function(){openLB(i.src);});f.appendChild(i);f.appendChild(el('figcaption',null,'点击图片放大'));return f;}
 function openLB(src){var o=el('div','lb');var im=document.createElement('img');im.src=src;o.appendChild(im);o.addEventListener('click',function(){o.remove();});document.body.appendChild(o);}
 function mkHL(text,id,cls){var c=el('p','hl '+(cls||''));c._t=text;c.dataset.id=id;renderHL(c);return c;}
 function pack(id,a){var r=[],i=0;while(i<a.length){if(!a[i]){i++;continue;}var j=i+1;while(j<a.length&&a[j]===a[i])j++;r.push([i,j,a[i]]);i=j;}if(r.length)hl[id]=r;else delete hl[id];}
