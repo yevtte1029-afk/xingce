@@ -186,7 +186,7 @@ body{background-image:none}
 </style>
 <div class="wrap">
 <div class="sig">作者@RED.Yvette</div>
-<label class="sw cdtop" title="每题 60 秒"><span class="swt">倒计时 60s</span><input type="checkbox" id="cdsw" role="switch"><span class="trk"><i></i></span></label>
+<label class="sw cdtop" title="每题 90 秒"><span class="swt">倒计时 90s</span><input type="checkbox" id="cdsw" role="switch"><span class="trk"><i></i></span></label>
 <header>
 <div class="eyebrow">行测 · 数量关系 · 题库全部 1313 题</div>
 <h1>数量关系练习</h1>
@@ -316,7 +316,7 @@ function richNode(t){if(!PUA.test(t))return document.createTextNode(t);var f=doc
   if(last<t.length)f.appendChild(document.createTextNode(t.slice(last)));return f;}
 function setRich(e,t){if(PUA.test(t)){e.textContent='';e.appendChild(richNode(t));}else e.textContent=t;}
 var stage=$('#stage');
-var CDSEC=60;st.cd=!!mem.cd;
+var CDSEC=90;st.cd=!!mem.cd;
 (function(){var sw=$('#cdsw');sw.checked=st.cd;sw.addEventListener('change',function(){st.cd=sw.checked;mem.cd=st.cd;save();if(!st.answered&&st.queue.length&&st.i<st.queue.length){startTimer();}else{tick();}});})();
 function render(){
   stage.textContent='';renderFilter();renderStats();
